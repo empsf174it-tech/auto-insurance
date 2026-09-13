@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Authentication | Apex Auto Insurance</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+  
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--bg-color) 0%, rgba(13, 110, 253, 0.1) 100%);
+      margin: 0;
+      padding: var(--space-4);
+      /* Prevent scrolling on desktop, allow on very small devices if needed, but aim for no-scroll */
+      overflow-y: auto;
+    }
+    
+    .auth-card {
+      background-color: var(--surface-color);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      width: 100%;
+      max-width: 440px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+    
+    .auth-header {
+      padding: var(--space-5) var(--space-5) 0;
+      text-align: center;
+    }
+    
+    .auth-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: var(--space-4);
+    }
+    
+    .auth-brand i {
+      font-size: 1.75rem;
+      color: var(--accent);
+    }
+    
+    .auth-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: var(--space-5);
+    }
+    
+    .auth-tab {
+      flex: 1;
+      text-align: center;
+      padding: var(--space-3) 0;
+      font-weight: 500;
+      color: var(--text-secondary);
+      cursor: pointer;
+      position: relative;
+      transition: var(--transition);
+    }
+    
+    .auth-tab.active {
+      color: var(--primary);
+    }
+    
+    .auth-tab::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: transparent;
+      transition: var(--transition);
+    }
+    
+    .auth-tab.active::after {
+      background-color: var(--primary);
+    }
+    
+    .auth-body {
+      padding: 0 var(--space-5) var(--space-5);
+    }
+    
+    .auth-form {
+      display: none;
+      animation: fadeInUp 0.3s ease forwards;
+    }
+    
+    .auth-form.active {
+      display: block;
+    }
+    
+    .form-group {
+      margin-bottom: var(--space-4);
+    }
+    
+    .social-auth {
+      margin-top: var(--space-5);
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+    
+    .btn-social {
+      background-color: var(--surface-color);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+    
+    .btn-social:hover {
+      background-color: var(--bg-color);
+      color: var(--text-primary);
+      transform: translateY(0);
+      border-color: var(--text-secondary);
+    }
+    
+    .switch-link {
+      text-align: center;
+      margin-top: var(--space-4);
+      font-size: 0.875rem;
+    }
+    
+    .switch-link a {
+      font-weight: 500;
+      cursor: pointer;
+    }
+    
+    .checkbox-wrapper {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-2);
+      margin-bottom: var(--space-4);
+      font-size: 0.875rem;
+    }
+    
+    .checkbox-wrapper input {
+      margin-top: 4px;
+      accent-color: var(--primary);
+    }
+    
+    .checkbox-wrapper label {
+      color: var(--text-secondary);
+    }
+    
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="auth-brand">
+        <i class="ph-fill ph-shield-check"></i> Apex Auto
+      </div>
+      
+      <div class="auth-tabs">
+        <div class="auth-tab active" data-target="login-form">Login</div>
+        <div class="auth-tab" data-target="register-form">Register</div>
+      </div>
+    </div>
+    
+    <div class="auth-body">
+      
+      <!-- Login Form -->
+      <form id="login-form" class="auth-form active" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="login-email">Email</label>
+          <input type="email" class="form-control" id="login-email" required>
+          <div class="invalid-feedback">Please enter a valid email.</div>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label" for="login-password">Password</label>
+          <input type="password" class="form-control" id="login-password" required>
+          <div class="invalid-feedback">Password is required (min 8 chars).</div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary btn-block">Login</button>
+        
+        <div class="social-auth">
+          <button type="button" class="btn btn-social btn-block">
+            <i class="ph-fill ph-google-logo" style="color: #ea4335;"></i> Continue with Google
+          </button>
+          <button type="button" class="btn btn-social btn-block">
+            <i class="ph-fill ph-envelope-simple"></i> Continue with Email
+          </button>
+        </div>
+        
+        <div class="switch-link">
+          Don't have an account? <a onclick="switchTab('register-form')">Sign up</a>
+        </div>
+      </form>
+      
+      <!-- Register Form -->
+      <form id="register-form" class="auth-form" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="reg-name">Full Name</label>
+          <input type="text" class="form-control" id="reg-name" required>
+          <div class="invalid-feedback">Please enter your name.</div>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label" for="reg-email">Email</label>
+          <input type="email" class="form-control" id="reg-email" required>
+          <div class="invalid-feedback">Please enter a valid email.</div>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label" for="reg-password">Password</label>
+          <input type="password" class="form-control" id="reg-password" required>
+          <div class="invalid-feedback">Password must be at least 8 characters.</div>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label" for="reg-confirm">Confirm Password</label>
+          <input type="password" class="form-control" id="reg-confirm" required>
+          <div class="invalid-feedback" id="confirm-error">Passwords do not match.</div>
+        </div>
+        
+        <div class="checkbox-wrapper">
+          <input type="checkbox" id="reg-terms" required>
+          <label for="reg-terms">I agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a>.</label>
+        </div>
+        <div class="invalid-feedback" id="terms-error" style="margin-top: -10px; margin-bottom: 15px;">You must agree to the terms.</div>
+        
+        <button type="submit" class="btn btn-primary btn-block">Register</button>
+        
+        <div class="social-auth">
+          <button type="button" class="btn btn-social btn-block">
+            <i class="ph-fill ph-google-logo" style="color: #ea4335;"></i> Continue with Google
+          </button>
+          <button type="button" class="btn btn-social btn-block">
+            <i class="ph-fill ph-envelope-simple"></i> Continue with Email
+          </button>
+        </div>
+        
+        <div class="switch-link">
+          Already have an account? <a onclick="switchTab('login-form')">Log in</a>
+        </div>
+      </form>
+      
+    </div>
+  </div>
+
+  <script src="assets/js/main.js"></script>
+  <script>
+    // Tab Switching
+    const tabs = document.querySelectorAll('.auth-tab');
+    const forms = document.querySelectorAll('.auth-form');
+    
+    function switchTab(targetId) {
+      tabs.forEach(t => {
+        if (t.getAttribute('data-target') === targetId) {
+          t.classList.add('active');
+        } else {
+          t.classList.remove('active');
+        }
+      });
+      
+      forms.forEach(f => {
+        if (f.id === targetId) {
+          f.classList.add('active');
+        } else {
+          f.classList.remove('active');
+        }
+      });
+    }
+    
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        switchTab(tab.getAttribute('data-target'));
+      });
+    });
+
+    // Login Validation
+    const loginForm = document.getElementById('login-form');
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      let isValid = true;
+      const email = document.getElementById('login-email');
+      const pass = document.getElementById('login-password');
+      
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+        email.classList.add('is-invalid');
+        isValid = false;
+      } else {
+        email.classList.remove('is-invalid');
+      }
+      
+      if (pass.value.length < 8) {
+        pass.classList.add('is-invalid');
+        isValid = false;
+      } else {
+        pass.classList.remove('is-invalid');
+      }
+      
+      if (isValid) {
+        alert("Login successful! (Placeholder)");
+        // In a real app, redirect would happen here
+      }
+    });
+
+    // Register Validation
+    const regForm = document.getElementById('register-form');
+    regForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      let isValid = true;
+      const name = document.getElementById('reg-name');
+      const email = document.getElementById('reg-email');
+      const pass = document.getElementById('reg-password');
+      const confirm = document.getElementById('reg-confirm');
+      const terms = document.getElementById('reg-terms');
+      const termsError = document.getElementById('terms-error');
+      
+      if (name.value.trim() === '') {
+        name.classList.add('is-invalid');
+        isValid = false;
+      } else {
+        name.classList.remove('is-invalid');
+      }
+      
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+        email.classList.add('is-invalid');
+        isValid = false;
+      } else {
+        email.classList.remove('is-invalid');
+      }
+      
+      if (pass.value.length < 8) {
+        pass.classList.add('is-invalid');
+        isValid = false;
+      } else {
+        pass.classList.remove('is-invalid');
+      }
+      
+      if (confirm.value !== pass.value || confirm.value === '') {
+        confirm.classList.add('is-invalid');
+        isValid = false;
+      } else {
+        confirm.classList.remove('is-invalid');
+      }
+      
+      if (!terms.checked) {
+        termsError.style.display = 'block';
+        isValid = false;
+      } else {
+        termsError.style.display = 'none';
+      }
+      
+      if (isValid) {
+        alert("Registration successful! (Placeholder)");
+        // In a real app, redirect or login would happen here
+      }
+    });
+  </script>
+</body>
+</html>

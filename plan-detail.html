@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plan Details | Apex Auto Insurance</title>
+  <meta name="description" content="View detailed coverage breakdown, exclusions, and get a premium estimate for your auto insurance policy.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+  
+  <style>
+    .detail-header {
+      padding: 8rem 0 4rem;
+      background: var(--bg-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: var(--space-8);
+      padding: var(--space-8) 0;
+    }
+    
+    .coverage-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: var(--space-6);
+      background: var(--surface-color);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+    
+    .coverage-table th, .coverage-table td {
+      padding: var(--space-4);
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .coverage-table th {
+      background-color: rgba(13, 110, 253, 0.05);
+      font-weight: 600;
+      color: var(--primary);
+    }
+    
+    .coverage-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .status-icon {
+      font-size: 1.25rem;
+      vertical-align: middle;
+      margin-right: var(--space-2);
+    }
+    
+    .status-yes { color: var(--success); }
+    .status-no { color: var(--error); }
+    
+    .exclusion-list {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .exclusion-list li {
+      margin-bottom: var(--space-3);
+      display: flex;
+      gap: var(--space-2);
+    }
+    
+    .exclusion-list i {
+      color: var(--error);
+      margin-top: 4px;
+    }
+    
+    /* Calculator Section */
+    .calculator-card {
+      background: var(--surface-color);
+      border-radius: var(--radius);
+      padding: var(--space-5);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 100px;
+    }
+    
+    .calc-header {
+      text-align: center;
+      margin-bottom: var(--space-4);
+      padding-bottom: var(--space-4);
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .calc-header h3 {
+      margin-bottom: var(--space-1);
+    }
+    
+    .calc-header p {
+      font-size: 0.875rem;
+      margin-bottom: 0;
+    }
+    
+    .addon-group {
+      margin-bottom: var(--space-4);
+    }
+    
+    .addon-label {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      cursor: pointer;
+      margin-bottom: var(--space-2);
+    }
+    
+    .addon-label input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary);
+    }
+    
+    .result-block {
+      background-color: rgba(13, 110, 253, 0.05);
+      border-radius: var(--radius);
+      padding: var(--space-4);
+      margin-top: var(--space-4);
+      text-align: center;
+      border: 1px dashed var(--primary);
+      animation: fadeInUp 0.4s ease forwards;
+    }
+    
+    .result-block h4 {
+      margin-bottom: var(--space-2);
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+    
+    .result-price {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      font-family: var(--font-heading);
+      margin-bottom: var(--space-2);
+    }
+    
+    .result-disclaimer {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+      margin-bottom: 0;
+    }
+    
+    @media (max-width: 1024px) {
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+      .calculator-card {
+        position: static;
+        order: -1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-brand">
+        <i class="ph-fill ph-shield-check"></i> Apex Auto
+      </a>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="plans.html" class="nav-link">Plans</a>
+        <a href="claims.html" class="nav-link">Claims</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme-toggle" aria-label="Toggle dark mode">
+          <i class="ph ph-moon"></i>
+        </button>
+        <a href="auth.html" class="btn btn-primary">Login</a>
+      </div>
+      <button class="hamburger" aria-label="Open menu">
+        <i class="ph ph-list"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="drawer-overlay"></div>
+  <div class="drawer">
+    <button class="drawer-close" aria-label="Close menu">
+      <i class="ph ph-x"></i>
+    </button>
+    <nav class="drawer-links">
+      <a href="index.html" class="drawer-link">Home</a>
+      <a href="plans.html" class="drawer-link">Plans</a>
+      <a href="claims.html" class="drawer-link">Claims</a>
+      <a href="about.html" class="drawer-link">About</a>
+      <a href="contact.html" class="drawer-link">Contact</a>
+    </nav>
+    <div class="drawer-actions">
+      <button class="theme-toggle" aria-label="Toggle dark mode" style="align-self: flex-start; margin-bottom: 1rem;">
+        <i class="ph ph-moon"></i>
+      </button>
+      <a href="auth.html" class="btn btn-primary btn-block">Login</a>
+    </div>
+  </div>
+
+  <main>
+    <section class="detail-header">
+      <div class="container">
+        <a href="plans.html" style="display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+          <i class="ph ph-arrow-left"></i> Back to Plans
+        </a>
+        <h1>Comprehensive Policy Details</h1>
+        <p>A deep dive into what's covered, what's not, and how much it costs.</p>
+      </div>
+    </section>
+
+    <section class="container detail-grid">
+      <div class="detail-content animate-up">
+        <h2>Coverage Breakdown</h2>
+        <table class="coverage-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Third-Party</th>
+              <th>Comprehensive</th>
+              <th>Zero-Dep</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Third-Party Property Damage</td>
+              <td><i class="ph-fill ph-check-circle status-icon status-yes"></i></td>
+              <td><i class="ph-fill ph-check-circle status-icon status-yes"></i></td>
+              <td><i class="ph-fill ph-check-circle status-icon status-yes"></i></td>
+            </tr>
+            <tr>
+              <td>Third-Party Injury/Death</td>
+              <td><i class="ph-fill ph-check-circle status-icon status-yes"></i></td>
+              <td><i class="ph-fill ph-check-circle status-icon status-yes"></i></td>
+              <td><i class="ph-fill ph-check-circle status-icon status-yes"></i></td>
+            </tr>
+            <tr>
+              <td>Personal Accident (Owner-Driver)</td>
+              <td><i class="ph-fill ph-check-circle status-icon status-yes"></i></td>
+              <td><i class="ph-fill ph-check-circle status-icon status-yes"></i></td>
+              <td><i class="ph-fill ph-check-circle status-icon status-yes"></i></td>
+            </tr>
+            <tr>
+              <td>Accidental Damage to Own Vehicle</td>
+              <td><i class="ph-fill ph-x-circle status-icon status-no"></i></td>
+              <td><i class="ph-fill ph-check-circle status-icon status-yes"></i></td>
+              <td><i class="ph-fill ph-check-circle status-icon status-yes"></i></td>
+            </tr>
+            <tr>
+              <td>Fire & Theft Coverage</td>
+              <td><i class="ph-fill ph-x-circle status-icon status-no"></i></td>
+              <td><i class="ph-fill ph-check-circle status-icon status-yes"></i></td>
+              <td><i class="ph-fill ph-check-circle status-icon status-yes"></i></td>
+            </tr>
+            <tr>
+              <td>Natural Calamities (Floods, Earthquakes)</td>
+              <td><i class="ph-fill ph-x-circle status-icon status-no"></i></td>
+              <td><i class="ph-fill ph-check-circle status-icon status-yes"></i></td>
+              <td><i class="ph-fill ph-check-circle status-icon status-yes"></i></td>
+            </tr>
+            <tr>
+              <td>Zero Depreciation on Parts</td>
+              <td><i class="ph-fill ph-x-circle status-icon status-no"></i></td>
+              <td><i class="ph-fill ph-x-circle status-icon status-no"></i></td>
+              <td><i class="ph-fill ph-check-circle status-icon status-yes"></i></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2 style="margin-top: var(--space-8);">Key Exclusions</h2>
+        <p>We believe in full transparency. Here is what is <strong>not</strong> covered under standard policies:</p>
+        <ul class="exclusion-list">
+          <li><i class="ph-fill ph-x-circle"></i> Wear and tear aging of the vehicle</li>
+          <li><i class="ph-fill ph-x-circle"></i> Electrical or mechanical breakdowns (unless Engine Protect add-on is chosen)</li>
+          <li><i class="ph-fill ph-x-circle"></i> Damage occurring outside geographical limits of India</li>
+          <li><i class="ph-fill ph-x-circle"></i> Driving under the influence of alcohol or drugs</li>
+          <li><i class="ph-fill ph-x-circle"></i> Driving without a valid driving license</li>
+          <li><i class="ph-fill ph-x-circle"></i> Using a private vehicle for commercial purposes</li>
+        </ul>
+        
+        <h2 style="margin-top: var(--space-8);">Available Add-ons</h2>
+        <p>Supercharge your policy with these optional covers:</p>
+        <div class="features-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: var(--space-6);">
+          <div class="card" style="padding: var(--space-4); align-items: flex-start; text-align: left;">
+            <h4 style="margin-bottom: var(--space-2); color: var(--primary);">Zero Depreciation</h4>
+            <p style="font-size: 0.875rem; margin-bottom: 0;">Get full claim settlement without deduction for depreciation on plastic/metal parts.</p>
+          </div>
+          <div class="card" style="padding: var(--space-4); align-items: flex-start; text-align: left;">
+            <h4 style="margin-bottom: var(--space-2); color: var(--primary);">Engine Protect</h4>
+            <p style="font-size: 0.875rem; margin-bottom: 0;">Covers damage to engine parts due to water ingression or lubricating oil leakage.</p>
+          </div>
+          <div class="card" style="padding: var(--space-4); align-items: flex-start; text-align: left;">
+            <h4 style="margin-bottom: var(--space-2); color: var(--primary);">24/7 Roadside Assistance</h4>
+            <p style="font-size: 0.875rem; margin-bottom: 0;">Emergency towing, flat tire replacement, and jump-starts anywhere, anytime.</p>
+          </div>
+          <div class="card" style="padding: var(--space-4); align-items: flex-start; text-align: left;">
+            <h4 style="margin-bottom: var(--space-2); color: var(--primary);">NCB Protection</h4>
+            <p style="font-size: 0.875rem; margin-bottom: 0;">Retain your No Claim Bonus discount even after making one claim during the policy year.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="calculator-sidebar animate-up delay-2">
+        <div class="calculator-card" id="calculator">
+          <div class="calc-header">
+            <h3>Premium Calculator</h3>
+            <p>Get an instant personalized estimate</p>
+          </div>
+          
+          <form id="premium-calculator-form">
+            <div class="form-group">
+              <label class="form-label" for="calc-vehicle-type">Vehicle Type</label>
+              <select class="form-control" id="calc-vehicle-type" required>
+                <option value="car">Car (4-Wheeler)</option>
+                <option value="bike">Bike (2-Wheeler)</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="vehicle-age">Vehicle Age (Years)</label>
+              <input type="text" class="form-control" id="vehicle-age" placeholder="e.g. 3" required>
+              <div class="invalid-feedback" id="age-error">Please enter a valid age between 0 and 20.</div>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="vehicle-idv">Insured Declared Value (IDV in ₹)</label>
+              <input type="text" class="form-control" id="vehicle-idv" placeholder="e.g. 500000" required>
+              <div class="invalid-feedback" id="idv-error">Please enter a valid amount (Min: ₹10,000).</div>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="calc-city">Registration City</label>
+              <select class="form-control" id="calc-city" required>
+                <option value="other">Other / Tier 2/3</option>
+                <option value="mumbai">Mumbai</option>
+                <option value="delhi">Delhi / NCR</option>
+                <option value="bangalore">Bangalore</option>
+              </select>
+            </div>
+            
+            <div class="addon-group">
+              <label class="form-label">Select Add-ons (Optional)</label>
+              <label class="addon-label">
+                <input type="checkbox" id="addon-zero-dep"> Zero Depreciation Cover
+              </label>
+              <label class="addon-label">
+                <input type="checkbox" id="addon-engine"> Engine Protection
+              </label>
+              <label class="addon-label">
+                <input type="checkbox" id="addon-rsa"> 24/7 Roadside Assistance
+              </label>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-block">Calculate Premium</button>
+          </form>
+          
+          <div id="calculator-result" class="result-block hidden">
+            <h4>Estimated Annual Premium</h4>
+            <div class="result-price" id="estimated-premium">₹0</div>
+            <p class="result-disclaimer">
+              <i class="ph-fill ph-info"></i> <strong>Disclaimer:</strong> This is a placeholder estimate for demonstration purposes only. It is not an actual quote from a licensed insurer. Final premium depends on RTO, exact make/model, and previous claims history. Includes mock 18% GST.
+            </p>
+            <button class="btn btn-accent btn-block" style="margin-top: 1rem;">
+              Proceed to Buy <i class="ph ph-lock-key" style="margin-left: 0.5rem;"></i>
+            </button>
+            <p style="font-size: 0.75rem; text-align: center; margin-top: 0.5rem; color: var(--text-secondary); margin-bottom: 0;">
+              <!-- Secure Payment Placeholder -->
+              <i class="ph ph-lock"></i> Secure payment processing (Placeholder)
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="index.html" class="nav-brand" style="margin-bottom: 1rem; display: inline-flex;">
+            <i class="ph-fill ph-shield-check"></i> Apex Auto
+          </a>
+          <p>Premium auto insurance for your car and two-wheeler. Drive with confidence knowing we've got you covered.</p>
+          <div class="social-links">
+            <a href="#" class="social-link"><i class="ph-fill ph-facebook-logo"></i></a>
+            <a href="#" class="social-link"><i class="ph-fill ph-twitter-logo"></i></a>
+            <a href="#" class="social-link"><i class="ph-fill ph-instagram-logo"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Insurance</h4>
+          <div class="footer-links">
+            <a href="plans.html?type=car">Car Insurance</a>
+            <a href="plans.html?type=bike">Bike Insurance</a>
+            <a href="plans.html">Comprehensive</a>
+            <a href="plans.html">Third-Party</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <div class="footer-links">
+            <a href="about.html">About Us</a>
+            <a href="claims.html">Claims</a>
+            <a href="contact.html">Contact</a>
+            <a href="about.html">Careers</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <div class="footer-links">
+            <a href="contact.html">Help Center</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Privacy Policy</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Apex Auto Insurance. All rights reserved.</p>
+        <p class="disclosure">Apex Auto Insurance is a placeholder insurance brand for demonstration purposes. Not a licensed insurer. Premiums shown are illustrative estimates only.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/calculator.js"></script>
+</body>
+</html>

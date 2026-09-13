@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Apex Auto Insurance</title>
+  <meta name="description" content="Learn about our mission, our story, and the leadership team driving Apex Auto Insurance forward.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+  
+  <style>
+    .about-hero {
+      padding: 10rem 0 6rem;
+      background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&q=80&w=1920') center/cover no-repeat;
+      color: #fff;
+      text-align: center;
+    }
+    
+    .about-hero h1, .about-hero p {
+      color: #fff;
+    }
+    
+    .about-hero p {
+      font-size: 1.25rem;
+      max-width: 800px;
+      margin: 0 auto;
+      opacity: 0.9;
+    }
+    
+    .story-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-8);
+      align-items: center;
+    }
+    
+    .story-img {
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    
+    .mission-vision {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-6);
+      margin-top: var(--space-8);
+    }
+    
+    .mission-card {
+      background-color: rgba(13, 110, 253, 0.05);
+      border: 1px solid var(--border-color);
+    }
+    
+    .milestones {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .milestone-item {
+      display: flex;
+      gap: var(--space-4);
+      margin-bottom: var(--space-5);
+    }
+    
+    .milestone-year {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      width: 100px;
+      flex-shrink: 0;
+      text-align: right;
+    }
+    
+    .milestone-content {
+      border-left: 2px solid var(--border-color);
+      padding-left: var(--space-4);
+      padding-bottom: var(--space-4);
+    }
+    
+    .leadership-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--space-6);
+    }
+    
+    .leader-card {
+      text-align: center;
+      border: none;
+      box-shadow: none;
+      background: transparent;
+      padding: 0;
+    }
+    
+    .leader-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: var(--space-3);
+      border: 4px solid var(--surface-color);
+      box-shadow: var(--shadow);
+    }
+    
+    .leader-card h4 {
+      margin-bottom: var(--space-1);
+    }
+    
+    @media (max-width: 768px) {
+      .story-section, .mission-vision {
+        grid-template-columns: 1fr;
+      }
+      .milestone-item {
+        flex-direction: column;
+        gap: var(--space-2);
+      }
+      .milestone-year {
+        text-align: left;
+      }
+      .milestone-content {
+        border-left: none;
+        padding-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-brand">
+        <i class="ph-fill ph-shield-check"></i> Apex Auto
+      </a>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="plans.html" class="nav-link">Plans</a>
+        <a href="claims.html" class="nav-link">Claims</a>
+        <a href="about.html" class="nav-link active">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme-toggle" aria-label="Toggle dark mode">
+          <i class="ph ph-moon"></i>
+        </button>
+        <a href="auth.html" class="btn btn-primary">Login</a>
+      </div>
+      <button class="hamburger" aria-label="Open menu">
+        <i class="ph ph-list"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="drawer-overlay"></div>
+  <div class="drawer">
+    <button class="drawer-close" aria-label="Close menu">
+      <i class="ph ph-x"></i>
+    </button>
+    <nav class="drawer-links">
+      <a href="index.html" class="drawer-link">Home</a>
+      <a href="plans.html" class="drawer-link">Plans</a>
+      <a href="claims.html" class="drawer-link">Claims</a>
+      <a href="about.html" class="drawer-link active">About</a>
+      <a href="contact.html" class="drawer-link">Contact</a>
+    </nav>
+    <div class="drawer-actions">
+      <button class="theme-toggle" aria-label="Toggle dark mode" style="align-self: flex-start; margin-bottom: 1rem;">
+        <i class="ph ph-moon"></i>
+      </button>
+      <a href="auth.html" class="btn btn-primary btn-block">Login</a>
+    </div>
+  </div>
+
+  <main>
+    <section class="about-hero animate-up">
+      <div class="container">
+        <h1>Driving Trust Forward</h1>
+        <p>At Apex Auto, we believe insurance shouldn't be a hassle. We're on a mission to make protecting your vehicle as seamless as the ride itself.</p>
+      </div>
+    </section>
+
+    <!-- Our Story -->
+    <section class="container animate-on-scroll">
+      <div class="story-section">
+        <div>
+          <h2>Our Story</h2>
+          <p>Founded in 2018, Apex Auto was born out of a simple frustration: why does buying insurance and filing claims feel so complicated? We saw an industry built on confusing jargon, endless paperwork, and slow responses.</p>
+          <p>We set out to build a digital-first insurance company that puts the customer in the driver's seat. By leveraging technology, we've stripped away the bureaucracy, enabling instant quotes, customized policies, and lightning-fast claim settlements.</p>
+          <p>Today, we proudly protect over 2 million vehicles nationwide, from daily commuter bikes to luxury sports cars.</p>
+        </div>
+        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800" alt="Apex Auto Team Collaboration" class="story-img">
+      </div>
+      
+      <div class="mission-vision">
+        <div class="card mission-card">
+          <i class="ph ph-target" style="font-size: 3rem; color: var(--primary); margin-bottom: var(--space-3);"></i>
+          <h3>Our Mission</h3>
+          <p>To provide transparent, affordable, and accessible auto insurance, ensuring every driver and rider feels secure on their journey.</p>
+        </div>
+        <div class="card mission-card">
+          <i class="ph ph-eye" style="font-size: 3rem; color: var(--primary); margin-bottom: var(--space-3);"></i>
+          <h3>Our Vision</h3>
+          <p>To be the most trusted and customer-centric mobility protection brand, pioneering digital innovations in the insurance space.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Regulatory Milestones -->
+    <section class="animate-on-scroll" style="background-color: var(--surface-color); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+      <div class="container">
+        <div class="section-header">
+          <h2>Our Journey & Compliance</h2>
+          <p>Building a foundation of trust requires strict adherence to regulatory standards.</p>
+        </div>
+        
+        <div class="milestones">
+          <div class="milestone-item">
+            <div class="milestone-year">2018</div>
+            <div class="milestone-content">
+              <h4>Inception & Seed Funding</h4>
+              <p>Apex Auto is founded with a vision to revolutionize auto insurance. Secured initial seed funding from top-tier VCs.</p>
+            </div>
+          </div>
+          
+          <div class="milestone-item">
+            <div class="milestone-year">2019</div>
+            <div class="milestone-content">
+              <h4>Regulatory Approval</h4>
+              <p>Obtained formal certification and operating license from the regulatory authority (Placeholder ID: IRDAI-MOCK-190). Launched our first Two-Wheeler policy.</p>
+            </div>
+          </div>
+          
+          <div class="milestone-item">
+            <div class="milestone-year">2021</div>
+            <div class="milestone-content">
+              <h4>Expansion to Car Insurance</h4>
+              <p>Expanded our portfolio to include comprehensive car insurance, introducing the industry's first instant zero-depreciation add-on via our app.</p>
+            </div>
+          </div>
+          
+          <div class="milestone-item">
+            <div class="milestone-year">2024</div>
+            <div class="milestone-content">
+              <h4>1 Million Customers Milestone</h4>
+              <p>Crossed 1 million active policies and achieved a 98.5% claim settlement ratio, making us one of the fastest-growing digital insurers.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Leadership -->
+    <section class="container animate-on-scroll">
+      <div class="section-header">
+        <h2>Meet the Leadership</h2>
+        <p>The visionaries steering the wheel at Apex Auto.</p>
+      </div>
+      
+      <div class="leadership-grid">
+        <div class="leader-card">
+          <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=300" alt="Rajeev Singh, CEO" class="leader-img">
+          <h4>Rajeev Singh</h4>
+          <p>Chief Executive Officer</p>
+        </div>
+        <div class="leader-card">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300" alt="Ananya Sharma, COO" class="leader-img">
+          <h4>Ananya Sharma</h4>
+          <p>Chief Operating Officer</p>
+        </div>
+        <div class="leader-card">
+          <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=300" alt="Vikram Mehta, CTO" class="leader-img">
+          <h4>Vikram Mehta</h4>
+          <p>Chief Technology Officer</p>
+        </div>
+        <div class="leader-card">
+          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=300" alt="Priya Desai, Head of Claims" class="leader-img">
+          <h4>Priya Desai</h4>
+          <p>Head of Claims</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="index.html" class="nav-brand" style="margin-bottom: 1rem; display: inline-flex;">
+            <i class="ph-fill ph-shield-check"></i> Apex Auto
+          </a>
+          <p>Premium auto insurance for your car and two-wheeler. Drive with confidence knowing we've got you covered.</p>
+          <div class="social-links">
+            <a href="#" class="social-link"><i class="ph-fill ph-facebook-logo"></i></a>
+            <a href="#" class="social-link"><i class="ph-fill ph-twitter-logo"></i></a>
+            <a href="#" class="social-link"><i class="ph-fill ph-instagram-logo"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Insurance</h4>
+          <div class="footer-links">
+            <a href="plans.html?type=car">Car Insurance</a>
+            <a href="plans.html?type=bike">Bike Insurance</a>
+            <a href="plans.html">Comprehensive</a>
+            <a href="plans.html">Third-Party</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <div class="footer-links">
+            <a href="about.html">About Us</a>
+            <a href="claims.html">Claims</a>
+            <a href="contact.html">Contact</a>
+            <a href="about.html">Careers</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <div class="footer-links">
+            <a href="contact.html">Help Center</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Privacy Policy</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Apex Auto Insurance. All rights reserved.</p>
+        <p class="disclosure">Apex Auto Insurance is a placeholder insurance brand for demonstration purposes. Not a licensed insurer. Premiums shown are illustrative estimates only.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

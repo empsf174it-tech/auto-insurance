@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Insurance Plans | Apex Auto Insurance</title>
+  <meta name="description" content="Explore our comprehensive and third-party insurance plans for cars and two-wheelers.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+  
+  <style>
+    .page-header {
+      padding: 8rem 0 4rem;
+      background: linear-gradient(135deg, var(--bg-color) 0%, rgba(13, 110, 253, 0.05) 100%);
+      text-align: center;
+    }
+    
+    .plan-filters {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-4);
+      margin-bottom: var(--space-8);
+      flex-wrap: wrap;
+    }
+    
+    .filter-btn {
+      padding: 0.75rem 2rem;
+      border-radius: 50px;
+      border: 1px solid var(--border-color);
+      background-color: var(--surface-color);
+      color: var(--text-primary);
+      font-weight: 500;
+      font-size: 1.125rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    
+    .filter-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    
+    .filter-btn.active {
+      background-color: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 4px 10px rgba(13, 110, 253, 0.3);
+    }
+    
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-6);
+      margin-bottom: var(--space-8);
+    }
+    
+    .plan-card {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .plan-badge {
+      position: absolute;
+      top: 1rem;
+      right: -2rem;
+      background-color: var(--accent);
+      color: #fff;
+      padding: 0.25rem 3rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      transform: rotate(45deg);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      z-index: 1;
+    }
+    
+    .plan-header {
+      text-align: center;
+      margin-bottom: var(--space-5);
+      width: 100%;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: var(--space-4);
+    }
+    
+    .plan-icon {
+      font-size: 3rem;
+      color: var(--primary);
+      margin-bottom: var(--space-2);
+    }
+    
+    .plan-price {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      font-family: var(--font-heading);
+      margin: var(--space-2) 0;
+    }
+    
+    .plan-price span {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
+    
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin-bottom: var(--space-6);
+      width: 100%;
+      text-align: left;
+    }
+    
+    .plan-features li {
+      margin-bottom: var(--space-3);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-2);
+    }
+    
+    .plan-features i {
+      color: var(--success);
+      font-size: 1.25rem;
+      margin-top: 2px;
+    }
+    
+    .plan-features i.ph-x-circle {
+      color: var(--error);
+    }
+    
+    .plan-actions {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      width: 100%;
+      margin-top: auto;
+    }
+    
+    .hidden {
+      display: none !important;
+    }
+    
+    .disclaimer-text {
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-brand">
+        <i class="ph-fill ph-shield-check"></i> Apex Auto
+      </a>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="plans.html" class="nav-link active">Plans</a>
+        <a href="claims.html" class="nav-link">Claims</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme-toggle" aria-label="Toggle dark mode">
+          <i class="ph ph-moon"></i>
+        </button>
+        <a href="auth.html" class="btn btn-primary">Login</a>
+      </div>
+      <button class="hamburger" aria-label="Open menu">
+        <i class="ph ph-list"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="drawer-overlay"></div>
+  <div class="drawer">
+    <button class="drawer-close" aria-label="Close menu">
+      <i class="ph ph-x"></i>
+    </button>
+    <nav class="drawer-links">
+      <a href="index.html" class="drawer-link">Home</a>
+      <a href="plans.html" class="drawer-link active">Plans</a>
+      <a href="claims.html" class="drawer-link">Claims</a>
+      <a href="about.html" class="drawer-link">About</a>
+      <a href="contact.html" class="drawer-link">Contact</a>
+    </nav>
+    <div class="drawer-actions">
+      <button class="theme-toggle" aria-label="Toggle dark mode" style="align-self: flex-start; margin-bottom: 1rem;">
+        <i class="ph ph-moon"></i>
+      </button>
+      <a href="auth.html" class="btn btn-primary btn-block">Login</a>
+    </div>
+  </div>
+
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <h1>Find the Perfect Plan</h1>
+        <p>Transparent pricing, comprehensive coverage, and no hidden fees.</p>
+      </div>
+    </section>
+
+    <section class="container" style="padding-top: var(--space-8);">
+      
+      <div class="plan-filters">
+        <button class="filter-btn active" data-filter="car">
+          <i class="ph-fill ph-car-profile"></i> Car Insurance
+        </button>
+        <button class="filter-btn" data-filter="bike">
+          <i class="ph-fill ph-motorcycle"></i> Two-Wheeler Insurance
+        </button>
+      </div>
+
+      <div class="plans-grid">
+        
+        <!-- Car Plans -->
+        <div class="card plan-card plan-item" data-category="car">
+          <div class="plan-header">
+            <i class="ph ph-shield-warning plan-icon"></i>
+            <h3>Third-Party Liability</h3>
+            <p>Mandatory legal coverage</p>
+            <div class="plan-price">₹3,221<span> / year*</span></div>
+          </div>
+          <ul class="plan-features">
+            <li><i class="ph-fill ph-check-circle"></i> Third-party property damage</li>
+            <li><i class="ph-fill ph-check-circle"></i> Third-party injury cover</li>
+            <li><i class="ph-fill ph-check-circle"></i> Personal accident cover (Owner)</li>
+            <li><i class="ph-fill ph-x-circle"></i> Own damage cover</li>
+            <li><i class="ph-fill ph-x-circle"></i> Natural calamities cover</li>
+          </ul>
+          <div class="plan-actions">
+            <a href="plan-detail.html?plan=tp-car" class="btn btn-outline btn-block">View Details</a>
+            <a href="plan-detail.html?plan=tp-car#calculator" class="btn btn-primary btn-block">Get Quote</a>
+          </div>
+        </div>
+
+        <div class="card plan-card plan-item" data-category="car">
+          <div class="plan-badge">Popular</div>
+          <div class="plan-header">
+            <i class="ph ph-shield-check plan-icon"></i>
+            <h3>Comprehensive</h3>
+            <p>Complete peace of mind</p>
+            <div class="plan-price">₹8,450<span> / year*</span></div>
+          </div>
+          <ul class="plan-features">
+            <li><i class="ph-fill ph-check-circle"></i> Third-party liabilities</li>
+            <li><i class="ph-fill ph-check-circle"></i> Own damage (Accidents, Fire)</li>
+            <li><i class="ph-fill ph-check-circle"></i> Theft and natural calamities</li>
+            <li><i class="ph-fill ph-check-circle"></i> Personal accident cover</li>
+            <li><i class="ph-fill ph-x-circle"></i> Zero depreciation</li>
+          </ul>
+          <div class="plan-actions">
+            <a href="plan-detail.html?plan=comp-car" class="btn btn-outline btn-block">View Details</a>
+            <a href="plan-detail.html?plan=comp-car#calculator" class="btn btn-primary btn-block">Get Quote</a>
+          </div>
+        </div>
+
+        <div class="card plan-card plan-item" data-category="car">
+          <div class="plan-header">
+            <i class="ph ph-shield-star plan-icon"></i>
+            <h3>Zero-Dep Bundle</h3>
+            <p>Maximum payout guarantee</p>
+            <div class="plan-price">₹12,200<span> / year*</span></div>
+          </div>
+          <ul class="plan-features">
+            <li><i class="ph-fill ph-check-circle"></i> Everything in Comprehensive</li>
+            <li><i class="ph-fill ph-check-circle"></i> Zero Depreciation cover</li>
+            <li><i class="ph-fill ph-check-circle"></i> Engine Protection cover</li>
+            <li><i class="ph-fill ph-check-circle"></i> 24/7 Roadside Assistance</li>
+            <li><i class="ph-fill ph-check-circle"></i> Consumables cover</li>
+          </ul>
+          <div class="plan-actions">
+            <a href="plan-detail.html?plan=zero-car" class="btn btn-outline btn-block">View Details</a>
+            <a href="plan-detail.html?plan=zero-car#calculator" class="btn btn-primary btn-block">Get Quote</a>
+          </div>
+        </div>
+        
+        <!-- Bike Plans -->
+        <div class="card plan-card plan-item hidden" data-category="bike">
+          <div class="plan-header">
+            <i class="ph ph-shield-warning plan-icon"></i>
+            <h3>Third-Party Liability</h3>
+            <p>Mandatory legal coverage</p>
+            <div class="plan-price">₹714<span> / year*</span></div>
+          </div>
+          <ul class="plan-features">
+            <li><i class="ph-fill ph-check-circle"></i> Third-party property damage</li>
+            <li><i class="ph-fill ph-check-circle"></i> Third-party injury cover</li>
+            <li><i class="ph-fill ph-check-circle"></i> Personal accident cover (Owner)</li>
+            <li><i class="ph-fill ph-x-circle"></i> Own damage cover</li>
+            <li><i class="ph-fill ph-x-circle"></i> Natural calamities cover</li>
+          </ul>
+          <div class="plan-actions">
+            <a href="plan-detail.html?plan=tp-bike" class="btn btn-outline btn-block">View Details</a>
+            <a href="plan-detail.html?plan=tp-bike#calculator" class="btn btn-primary btn-block">Get Quote</a>
+          </div>
+        </div>
+
+        <div class="card plan-card plan-item hidden" data-category="bike">
+          <div class="plan-badge">Popular</div>
+          <div class="plan-header">
+            <i class="ph ph-shield-check plan-icon"></i>
+            <h3>Comprehensive</h3>
+            <p>Complete peace of mind</p>
+            <div class="plan-price">₹1,850<span> / year*</span></div>
+          </div>
+          <ul class="plan-features">
+            <li><i class="ph-fill ph-check-circle"></i> Third-party liabilities</li>
+            <li><i class="ph-fill ph-check-circle"></i> Own damage (Accidents, Fire)</li>
+            <li><i class="ph-fill ph-check-circle"></i> Theft and natural calamities</li>
+            <li><i class="ph-fill ph-check-circle"></i> Personal accident cover</li>
+            <li><i class="ph-fill ph-x-circle"></i> Zero depreciation</li>
+          </ul>
+          <div class="plan-actions">
+            <a href="plan-detail.html?plan=comp-bike" class="btn btn-outline btn-block">View Details</a>
+            <a href="plan-detail.html?plan=comp-bike#calculator" class="btn btn-primary btn-block">Get Quote</a>
+          </div>
+        </div>
+
+        <div class="card plan-card plan-item hidden" data-category="bike">
+          <div class="plan-header">
+            <i class="ph ph-shield-star plan-icon"></i>
+            <h3>Zero-Dep Bundle</h3>
+            <p>Maximum payout guarantee</p>
+            <div class="plan-price">₹2,600<span> / year*</span></div>
+          </div>
+          <ul class="plan-features">
+            <li><i class="ph-fill ph-check-circle"></i> Everything in Comprehensive</li>
+            <li><i class="ph-fill ph-check-circle"></i> Zero Depreciation cover</li>
+            <li><i class="ph-fill ph-check-circle"></i> Engine Protection cover</li>
+            <li><i class="ph-fill ph-check-circle"></i> 24/7 Roadside Assistance</li>
+            <li><i class="ph-fill ph-check-circle"></i> Consumables cover</li>
+          </ul>
+          <div class="plan-actions">
+            <a href="plan-detail.html?plan=zero-bike" class="btn btn-outline btn-block">View Details</a>
+            <a href="plan-detail.html?plan=zero-bike#calculator" class="btn btn-primary btn-block">Get Quote</a>
+          </div>
+        </div>
+
+      </div>
+      
+      <p class="disclaimer-text">* These premiums are illustrative estimates only based on standard vehicle profiles. Actual premium will depend on your vehicle's make, model, age, location, and selected add-ons. Use our calculator for a personalized estimate.</p>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="index.html" class="nav-brand" style="margin-bottom: 1rem; display: inline-flex;">
+            <i class="ph-fill ph-shield-check"></i> Apex Auto
+          </a>
+          <p>Premium auto insurance for your car and two-wheeler. Drive with confidence knowing we've got you covered.</p>
+          <div class="social-links">
+            <a href="#" class="social-link"><i class="ph-fill ph-facebook-logo"></i></a>
+            <a href="#" class="social-link"><i class="ph-fill ph-twitter-logo"></i></a>
+            <a href="#" class="social-link"><i class="ph-fill ph-instagram-logo"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Insurance</h4>
+          <div class="footer-links">
+            <a href="plans.html?type=car">Car Insurance</a>
+            <a href="plans.html?type=bike">Bike Insurance</a>
+            <a href="plans.html">Comprehensive</a>
+            <a href="plans.html">Third-Party</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <div class="footer-links">
+            <a href="about.html">About Us</a>
+            <a href="claims.html">Claims</a>
+            <a href="contact.html">Contact</a>
+            <a href="about.html">Careers</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <div class="footer-links">
+            <a href="contact.html">Help Center</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Privacy Policy</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Apex Auto Insurance. All rights reserved.</p>
+        <p class="disclosure">Apex Auto Insurance is a placeholder insurance brand for demonstration purposes. Not a licensed insurer. Premiums shown are illustrative estimates only.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const planItems = document.querySelectorAll('.plan-item');
+      
+      // Check URL for pre-selected type
+      const urlParams = new URLSearchParams(window.location.search);
+      const type = urlParams.get('type');
+      
+      if (type === 'bike' || type === 'car') {
+        filterPlans(type);
+      }
+      
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const filter = btn.getAttribute('data-filter');
+          filterPlans(filter);
+          
+          // Update URL without reload
+          const newUrl = new URL(window.location);
+          newUrl.searchParams.set('type', filter);
+          window.history.pushState({}, '', newUrl);
+        });
+      });
+      
+      function filterPlans(filter) {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        const activeBtn = document.querySelector(`.filter-btn[data-filter="${filter}"]`);
+        if (activeBtn) activeBtn.classList.add('active');
+        
+        planItems.forEach(item => {
+          if (item.getAttribute('data-category') === filter) {
+            item.classList.remove('hidden');
+            // Re-trigger animation if needed by adding a class or just letting it show
+            item.style.animation = 'none';
+            item.offsetHeight; /* trigger reflow */
+            item.style.animation = null;
+            item.classList.add('animate-up');
+          } else {
+            item.classList.add('hidden');
+            item.classList.remove('animate-up');
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

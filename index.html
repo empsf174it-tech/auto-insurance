@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apex Auto Insurance | Bike & Car Insurance</title>
+  <meta name="description" content="Get the best coverage for your car and two-wheeler with Apex Auto Insurance. Fast claims, 24/7 support, and affordable premiums.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  
+  <style>
+    /* Home specific styles */
+    .hero {
+      padding: 8rem 0 6rem;
+      background: linear-gradient(135deg, var(--bg-color) 0%, rgba(13, 110, 253, 0.05) 100%);
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(13, 110, 253, 0.1) 0%, transparent 70%);
+      border-radius: 50%;
+      z-index: 0;
+    }
+    
+    .hero-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-6);
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .hero-content h1 {
+      margin-bottom: var(--space-4);
+    }
+    
+    .hero-content h1 span {
+      color: var(--primary);
+    }
+    
+    .hero-content p {
+      font-size: 1.125rem;
+      margin-bottom: var(--space-5);
+    }
+    
+    .hero-actions {
+      display: flex;
+      gap: var(--space-3);
+      margin-bottom: var(--space-6);
+    }
+    
+    .hero-image {
+      position: relative;
+      height: 400px;
+    }
+    
+    .hero-img-wrapper {
+      position: absolute;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    
+    .img-car {
+      top: 0;
+      right: 0;
+      width: 80%;
+      z-index: 2;
+    }
+    
+    .img-bike {
+      bottom: 0;
+      left: 0;
+      width: 70%;
+      z-index: 3;
+      border: 8px solid var(--bg-color);
+    }
+    
+    .trust-badges {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+    
+    .trust-badge {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    
+    .trust-badge i {
+      color: var(--success);
+      font-size: 1.25rem;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-5);
+    }
+    
+    .feature-card {
+      text-align: left;
+      align-items: flex-start;
+    }
+    
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      background-color: rgba(13, 110, 253, 0.1);
+      color: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin-bottom: var(--space-4);
+    }
+    
+    .stats-section {
+      background-color: var(--primary);
+      color: #fff;
+      padding: var(--space-8) 0;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-5);
+      text-align: center;
+    }
+    
+    .stat-item h2 {
+      color: #fff;
+      font-size: 3rem;
+      margin-bottom: var(--space-2);
+    }
+    
+    .stat-item p {
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 0;
+      font-size: 1.125rem;
+    }
+    
+    .testimonials {
+      background-color: var(--surface-color);
+    }
+    
+    .testimonial-card {
+      text-align: left;
+      align-items: flex-start;
+    }
+    
+    .stars {
+      color: var(--accent);
+      margin-bottom: var(--space-3);
+    }
+    
+    .client-info {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-top: auto;
+      padding-top: var(--space-4);
+    }
+    
+    .client-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    
+    .cta-section {
+      text-align: center;
+      padding: var(--space-12) 0;
+      background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&q=80&w=1920') center/cover no-repeat;
+      color: #fff;
+    }
+    
+    .cta-section h2, .cta-section p {
+      color: #fff;
+    }
+    
+    .cta-section p {
+      opacity: 0.9;
+    }
+    
+    @media (max-width: 768px) {
+      .hero {
+        padding-top: 6rem;
+      }
+      .hero-container {
+        grid-template-columns: 1fr;
+      }
+      .hero-image {
+        height: 300px;
+        order: -1;
+        margin-bottom: var(--space-5);
+      }
+      .hero-actions {
+        flex-direction: column;
+      }
+      .stats-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-6);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-brand">
+        <i class="ph-fill ph-shield-check"></i> Apex Auto
+      </a>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="plans.html" class="nav-link">Plans</a>
+        <a href="claims.html" class="nav-link">Claims</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme-toggle" aria-label="Toggle dark mode">
+          <i class="ph ph-moon"></i>
+        </button>
+        <a href="auth.html" class="btn btn-primary">Login</a>
+      </div>
+      <button class="hamburger" aria-label="Open menu">
+        <i class="ph ph-list"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="drawer-overlay"></div>
+  <div class="drawer">
+    <button class="drawer-close" aria-label="Close menu">
+      <i class="ph ph-x"></i>
+    </button>
+    <nav class="drawer-links">
+      <a href="index.html" class="drawer-link active">Home</a>
+      <a href="plans.html" class="drawer-link">Plans</a>
+      <a href="claims.html" class="drawer-link">Claims</a>
+      <a href="about.html" class="drawer-link">About</a>
+      <a href="contact.html" class="drawer-link">Contact</a>
+    </nav>
+    <div class="drawer-actions">
+      <button class="theme-toggle" aria-label="Toggle dark mode" style="align-self: flex-start; margin-bottom: 1rem;">
+        <i class="ph ph-moon"></i>
+      </button>
+      <a href="auth.html" class="btn btn-primary btn-block">Login</a>
+    </div>
+  </div>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container hero-container">
+        <div class="hero-content animate-up">
+          <h1>Insure Your Ride with <span>Confidence</span></h1>
+          <p>Whether you're hitting the open road on two wheels or four, Apex Auto offers comprehensive coverage, rapid claims, and unbeatable support.</p>
+          
+          <div class="vehicle-toggle">
+            <button class="vehicle-toggle-btn active" onclick="window.location.href='plans.html?type=bike'">
+              <i class="ph-fill ph-motorcycle"></i> Two-Wheeler
+            </button>
+            <button class="vehicle-toggle-btn" onclick="window.location.href='plans.html?type=car'">
+              <i class="ph-fill ph-car-profile"></i> Car
+            </button>
+          </div>
+          
+          <div class="hero-actions">
+            <a href="plans.html" class="btn btn-primary">View Plans</a>
+            <a href="claims.html" class="btn btn-outline">File a Claim</a>
+          </div>
+          
+          <div class="trust-badges">
+            <div class="trust-badge">
+              <i class="ph-fill ph-check-circle"></i> IRDAI Approved
+            </div>
+            <div class="trust-badge">
+              <i class="ph-fill ph-check-circle"></i> 98% Claim Settlement
+            </div>
+          </div>
+        </div>
+        
+        <div class="hero-image animate-up delay-2">
+          <div class="hero-img-wrapper img-car">
+            <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&q=80&w=800" alt="Sleek sports car on road">
+          </div>
+          <div class="hero-img-wrapper img-bike">
+            <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&q=80&w=800" alt="Motorcycle rider with helmet">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="container animate-on-scroll">
+      <div class="section-header">
+        <h2>Why Choose Apex Auto?</h2>
+        <p>We provide more than just a policy. We provide peace of mind on every journey.</p>
+      </div>
+      
+      <div class="features-grid">
+        <div class="card feature-card">
+          <div class="feature-icon">
+            <i class="ph ph-lightning"></i>
+          </div>
+          <h3>Lightning Fast Claims</h3>
+          <p>Our digital-first claim process means you can file a claim in minutes and get approved in hours, not days.</p>
+        </div>
+        
+        <div class="card feature-card">
+          <div class="feature-icon">
+            <i class="ph ph-wrench"></i>
+          </div>
+          <h3>5000+ Network Garages</h3>
+          <p>Access our extensive network of premium garages across the country for cashless, hassle-free repairs.</p>
+        </div>
+        
+        <div class="card feature-card">
+          <div class="feature-icon">
+            <i class="ph ph-lifebuoy"></i>
+          </div>
+          <h3>24/7 Roadside Assist</h3>
+          <p>Flat tire? Dead battery? We're always just a call away, ready to get you back on the road anywhere, anytime.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats-section animate-on-scroll">
+      <div class="container stats-grid">
+        <div class="stat-item">
+          <h2>98.5%</h2>
+          <p>Claim Settlement Ratio</p>
+        </div>
+        <div class="stat-item">
+          <h2>2M+</h2>
+          <p>Happy Customers</p>
+        </div>
+        <div class="stat-item">
+          <h2>24/7</h2>
+          <p>Expert Support</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+      <div class="container animate-on-scroll">
+        <div class="section-header">
+          <h2>Loved by Drivers & Riders</h2>
+          <p>Don't just take our word for it. Hear from our community.</p>
+        </div>
+        
+        <div class="features-grid">
+          <div class="card testimonial-card">
+            <div class="stars">
+              <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+            </div>
+            <p>"The claim process for my bike accident was incredibly smooth. The cashless repair at their network garage saved me a ton of hassle."</p>
+            <div class="client-info">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100" alt="Rahul S." class="client-avatar">
+              <div>
+                <h4>Rahul S.</h4>
+                <p style="margin:0; font-size:0.875rem;">Two-Wheeler Owner</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="card testimonial-card">
+            <div class="stars">
+              <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+            </div>
+            <p>"I switched my car insurance to Apex last year. Not only are the premiums better, but their 24/7 roadside assistance actually answered instantly when my battery died."</p>
+            <div class="client-info">
+              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100" alt="Priya M." class="client-avatar">
+              <div>
+                <h4>Priya M.</h4>
+                <p style="margin:0; font-size:0.875rem;">Car Owner</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="card testimonial-card">
+            <div class="stars">
+              <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+            </div>
+            <p>"Transparency is what I value most. The premium calculator is spot on, and there are no hidden exclusions. Highly recommended for any vehicle."</p>
+            <div class="client-info">
+              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=100" alt="Amit V." class="client-avatar">
+              <div>
+                <h4>Amit V.</h4>
+                <p style="margin:0; font-size:0.875rem;">Multi-Vehicle Owner</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section animate-on-scroll">
+      <div class="container">
+        <div class="section-header" style="margin-bottom: var(--space-6);">
+          <h2>Ready to secure your journey?</h2>
+          <p>Get a personalized quote in less than 2 minutes. No paperwork required.</p>
+        </div>
+        <a href="plans.html" class="btn btn-accent" style="padding: 1rem 2rem; font-size: 1.125rem;">
+          Get Your Estimate <i class="ph ph-arrow-right"></i>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="index.html" class="nav-brand" style="margin-bottom: 1rem; display: inline-flex;">
+            <i class="ph-fill ph-shield-check"></i> Apex Auto
+          </a>
+          <p>Premium auto insurance for your car and two-wheeler. Drive with confidence knowing we've got you covered.</p>
+          <div class="social-links">
+            <a href="#" class="social-link"><i class="ph-fill ph-facebook-logo"></i></a>
+            <a href="#" class="social-link"><i class="ph-fill ph-twitter-logo"></i></a>
+            <a href="#" class="social-link"><i class="ph-fill ph-instagram-logo"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Insurance</h4>
+          <div class="footer-links">
+            <a href="plans.html?type=car">Car Insurance</a>
+            <a href="plans.html?type=bike">Bike Insurance</a>
+            <a href="plans.html">Comprehensive</a>
+            <a href="plans.html">Third-Party</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <div class="footer-links">
+            <a href="about.html">About Us</a>
+            <a href="claims.html">Claims</a>
+            <a href="contact.html">Contact</a>
+            <a href="about.html">Careers</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <div class="footer-links">
+            <a href="contact.html">Help Center</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Privacy Policy</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Apex Auto Insurance. All rights reserved.</p>
+        <p class="disclosure">Apex Auto Insurance is a placeholder insurance brand for demonstration purposes. Not a licensed insurer. Premiums shown are illustrative estimates only.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

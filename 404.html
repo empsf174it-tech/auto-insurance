@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found | Apex Auto Insurance</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+  
+  <style>
+    .not-found-section {
+      min-height: calc(100vh - 80px - 400px); /* rough calc for header/footer */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: var(--space-12) var(--space-4);
+    }
+    
+    .error-code {
+      font-family: var(--font-heading);
+      font-size: 8rem;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1;
+      margin-bottom: var(--space-4);
+      position: relative;
+    }
+    
+    .error-code::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background-color: var(--accent);
+      border-radius: 2px;
+    }
+    
+    .not-found-section h2 {
+      margin-bottom: var(--space-2);
+    }
+    
+    .not-found-section p {
+      max-width: 500px;
+      margin: 0 auto var(--space-6);
+      font-size: 1.125rem;
+    }
+    
+    .illustration {
+      font-size: 5rem;
+      color: var(--text-secondary);
+      margin-bottom: var(--space-6);
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-brand">
+        <i class="ph-fill ph-shield-check"></i> Apex Auto
+      </a>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="plans.html" class="nav-link">Plans</a>
+        <a href="claims.html" class="nav-link">Claims</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme-toggle" aria-label="Toggle dark mode">
+          <i class="ph ph-moon"></i>
+        </button>
+        <a href="auth.html" class="btn btn-primary">Login</a>
+      </div>
+      <button class="hamburger" aria-label="Open menu">
+        <i class="ph ph-list"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="drawer-overlay"></div>
+  <div class="drawer">
+    <button class="drawer-close" aria-label="Close menu">
+      <i class="ph ph-x"></i>
+    </button>
+    <nav class="drawer-links">
+      <a href="index.html" class="drawer-link">Home</a>
+      <a href="plans.html" class="drawer-link">Plans</a>
+      <a href="claims.html" class="drawer-link">Claims</a>
+      <a href="about.html" class="drawer-link">About</a>
+      <a href="contact.html" class="drawer-link">Contact</a>
+    </nav>
+    <div class="drawer-actions">
+      <button class="theme-toggle" aria-label="Toggle dark mode" style="align-self: flex-start; margin-bottom: 1rem;">
+        <i class="ph ph-moon"></i>
+      </button>
+      <a href="auth.html" class="btn btn-primary btn-block">Login</a>
+    </div>
+  </div>
+
+  <main style="padding-top: 80px;">
+    <section class="not-found-section animate-up">
+      <div class="illustration">
+        <i class="ph-duotone ph-map-pin-line"></i>
+      </div>
+      <div class="error-code">404</div>
+      <h2>Looks like you're lost.</h2>
+      <p>The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
+      
+      <div style="display: flex; gap: var(--space-3); justify-content: center;">
+        <a href="index.html" class="btn btn-primary">
+          <i class="ph ph-house" style="margin-right: 0.5rem;"></i> Back to Home
+        </a>
+        <a href="contact.html" class="btn btn-outline">
+          Contact Support
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="index.html" class="nav-brand" style="margin-bottom: 1rem; display: inline-flex;">
+            <i class="ph-fill ph-shield-check"></i> Apex Auto
+          </a>
+          <p>Premium auto insurance for your car and two-wheeler. Drive with confidence knowing we've got you covered.</p>
+          <div class="social-links">
+            <a href="#" class="social-link"><i class="ph-fill ph-facebook-logo"></i></a>
+            <a href="#" class="social-link"><i class="ph-fill ph-twitter-logo"></i></a>
+            <a href="#" class="social-link"><i class="ph-fill ph-instagram-logo"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Insurance</h4>
+          <div class="footer-links">
+            <a href="plans.html?type=car">Car Insurance</a>
+            <a href="plans.html?type=bike">Bike Insurance</a>
+            <a href="plans.html">Comprehensive</a>
+            <a href="plans.html">Third-Party</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <div class="footer-links">
+            <a href="about.html">About Us</a>
+            <a href="claims.html">Claims</a>
+            <a href="contact.html">Contact</a>
+            <a href="about.html">Careers</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <div class="footer-links">
+            <a href="contact.html">Help Center</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Privacy Policy</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Apex Auto Insurance. All rights reserved.</p>
+        <p class="disclosure">Apex Auto Insurance is a placeholder insurance brand for demonstration purposes. Not a licensed insurer. Premiums shown are illustrative estimates only.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
