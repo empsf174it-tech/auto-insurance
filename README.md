@@ -4,9 +4,10 @@ A modern, responsive, 8-page plain HTML/CSS/JS website for an auto insurance bra
 
 ## Design System
 
-- **Primary Color:** Electric Blue (`#0d6efd`)
-- **Accent Color:** Punchy Orange (`#fd7e14`)
-- **Secondary/Text:** Dark Navy (`#1e293b`)
+- **Primary Color:** Indigo (`#4f46e5`, lightens to `#7c83ff` in dark mode)
+- **Accent Color:** Amber (`#f59e0b`)
+- **Brand Gradient:** Indigo to cyan (`--gradient-brand`), used on CTAs, the logo mark and active nav pills
+- **Secondary/Text:** Ink Navy (`#0f172a`)
 - **Typography:** 'Outfit' for headings, 'Inter' for body.
 - **Icons:** Phosphor Icons (CDN)
 - **Theme:** Native Light/Dark mode support via CSS Variables and `localStorage`.
@@ -27,7 +28,9 @@ A modern, responsive, 8-page plain HTML/CSS/JS website for an auto insurance bra
 │   ├── css/
 │   │   └── style.css     # Global styles and CSS variables
 │   ├── js/
-│   │   ├── main.js       # Navigation, theme toggle, animations
+│   │   ├── main.js       # Navigation, theme toggle, scroll progress, reveals, counters
+│   │   ├── estimator.js  # Home page live premium estimator (interactive)
+│   │   ├── journey.js    # About page interactive milestone timeline
 │   │   ├── calculator.js # Logic for premium estimator
 │   │   └── claims.js     # Logic for claims tracking and form validation
 └── README.md
@@ -39,6 +42,8 @@ A modern, responsive, 8-page plain HTML/CSS/JS website for an auto insurance bra
 - **Responsive:** Fluidly scales down to 360px viewports with a custom hamburger drawer for mobile.
 - **Dark Mode:** System default fallback with a manual toggle in the navigation.
 - **Forms & Validation:** Client-side validation applied to all forms (Contact, Auth, Claims).
+- **Live Premium Estimator (Home):** An interactive section on `index.html` where sliders (IDV, vehicle age), vehicle/city/NCB chips and add-on toggles recompute an indicative annual premium in real time, with an animated figure, a breakdown bar (own damage / third-party / add-ons) and a coverage list that lights up as add-ons are selected. The hero vehicle switch stays in sync with it.
+- **Interactive Journey Timeline (About):** A milestone rail on `about.html` — click a year, use the prev/next controls or arrow keys, and the panel swaps copy, metrics and imagery. Auto-advances while on screen and stops as soon as you take control.
 - **Interactive Calculator:** A mock premium estimator on `plan-detail.html` that dynamically calculates costs based on vehicle age, IDV, city, and chosen add-ons. 
 - **SEO & Accessibility:** Proper semantic markup, readable contrasting colors, and well-structured heading hierarchies.
 

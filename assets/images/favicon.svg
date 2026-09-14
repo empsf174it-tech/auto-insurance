@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="apex-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5" />
+      <stop offset="50%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+    <linearGradient id="apex-shield" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#e0e7ff" />
+    </linearGradient>
+    <linearGradient id="apex-accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </linearGradient>
+    <filter id="apex-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0b1020" flood-opacity="0.32" />
+    </filter>
+  </defs>
+
+  <!-- Base Squircle -->
+  <rect x="32" y="32" width="448" height="448" rx="112" fill="url(#apex-bg)" />
+
+  <!-- Subtle Rim Glow -->
+  <rect x="44" y="44" width="424" height="424" rx="100" fill="none" stroke="#ffffff" stroke-opacity="0.22" stroke-width="6" />
+
+  <!-- Shield Base -->
+  <path d="M 256 108 C 324 108 368 132 368 132 C 368 258 324 354 256 404 C 188 354 144 258 144 132 C 144 132 188 108 256 108 Z" 
+        fill="url(#apex-shield)" filter="url(#apex-shadow)" />
+
+  <!-- Bold Checkmark / Apex V-Shape -->
+  <path d="M 200 248 L 238 286 L 314 198" 
+        fill="none" stroke="url(#apex-bg)" stroke-width="34" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Sparkle Accent -->
+  <path d="M 334 164 L 338 176 L 350 180 L 338 184 L 334 196 L 330 184 L 318 180 L 330 176 Z" fill="url(#apex-accent)" />
+</svg>

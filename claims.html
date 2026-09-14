@@ -9,22 +9,30 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  
   <link rel="stylesheet" href="assets/css/style.css">
   
   <style>
-    .page-header {
-      padding: 8rem 0 4rem;
-      background: linear-gradient(135deg, var(--bg-color) 0%, rgba(13, 110, 253, 0.05) 100%);
-      text-align: center;
-    }
     
+    /* Single column at every width — each block reads one after the other */
     .claims-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-8);
-      padding: var(--space-8) 0;
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+      max-width: 820px;
+      margin-inline: auto;
+      /* padding-block only — the shorthand would wipe .container's gutter. */
+      padding-block: var(--space-8) var(--space-12);
     }
     
+    /* Keep the tracker's input + button usable down to 360px */
+    @media (max-width: 420px) {
+      #track-claim-form .form-group { flex-wrap: wrap; }
+      #track-claim-form .btn { width: 100%; }
+    }
+
     .claim-form-container {
       background-color: var(--surface-color);
       padding: var(--space-6);
@@ -45,7 +53,7 @@
     
     .upload-area:hover {
       border-color: var(--primary);
-      background-color: rgba(13, 110, 253, 0.05);
+      background-color: rgba(var(--primary-rgb), 0.05);
     }
     
     .upload-icon {
@@ -90,7 +98,7 @@
     
     .timeline-item.active::before {
       background-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.2);
+      box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.2);
     }
     
     .timeline-item.completed::before {
@@ -105,52 +113,6 @@
     .timeline-item p {
       font-size: 0.875rem;
       margin-bottom: 0;
-    }
-    
-    /* FAQ Accordion */
-    .faq-container {
-      margin-top: var(--space-8);
-    }
-    
-    .faq-item {
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius);
-      margin-bottom: var(--space-3);
-      background-color: var(--surface-color);
-      overflow: hidden;
-    }
-    
-    .faq-question {
-      padding: var(--space-4);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      font-weight: 500;
-      color: var(--text-primary);
-    }
-    
-    .faq-question i {
-      transition: transform 0.3s ease;
-    }
-    
-    .faq-answer {
-      padding: 0 var(--space-4);
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-      transition: all 0.3s ease;
-      color: var(--text-secondary);
-    }
-    
-    .faq-item.active .faq-question i {
-      transform: rotate(180deg);
-    }
-    
-    .faq-item.active .faq-answer {
-      padding: 0 var(--space-4) var(--space-4);
-      max-height: 300px;
-      opacity: 1;
     }
     
     .hidden {
@@ -168,11 +130,6 @@
       margin-bottom: var(--space-4);
     }
     
-    @media (max-width: 768px) {
-      .claims-grid {
-        grid-template-columns: 1fr;
-      }
-    }
   </style>
 </head>
 <body>
@@ -185,9 +142,9 @@
       </a>
       <nav class="nav-links">
         <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">About</a>
         <a href="plans.html" class="nav-link">Plans</a>
         <a href="claims.html" class="nav-link active">Claims</a>
-        <a href="about.html" class="nav-link">About</a>
         <a href="contact.html" class="nav-link">Contact</a>
       </nav>
       <div class="nav-actions">
@@ -210,9 +167,9 @@
     </button>
     <nav class="drawer-links">
       <a href="index.html" class="drawer-link">Home</a>
+      <a href="about.html" class="drawer-link">About</a>
       <a href="plans.html" class="drawer-link">Plans</a>
       <a href="claims.html" class="drawer-link active">Claims</a>
-      <a href="about.html" class="drawer-link">About</a>
       <a href="contact.html" class="drawer-link">Contact</a>
     </nav>
     <div class="drawer-actions">
@@ -224,10 +181,30 @@
   </div>
 
   <main>
-    <section class="page-header">
-      <div class="container">
-        <h1>Claims Center</h1>
-        <p>Fast, transparent, and hassle-free. We're here to help when you need it most.</p>
+    <section class="page-hero" style="--hero-img: url('https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&q=80&w=1920')">
+      <div class="container animate-up">
+        <span class="eyebrow"><i class="ph-fill ph-lifebuoy"></i> We pick up 24/7</span>
+        <h1>Claims center</h1>
+        <p>Fast, transparent and hassle-free. File in minutes, track in real time, and get back on the road.</p>
+
+        <div class="hero-stat-strip">
+          <div class="hero-stat">
+            <strong>4h 12m</strong>
+            <span>Avg. approval time</span>
+          </div>
+          <div class="hero-stat">
+            <strong>98.5%</strong>
+            <span>Claims settled</span>
+          </div>
+          <div class="hero-stat">
+            <strong>24/7</strong>
+            <span>Roadside dispatch</span>
+          </div>
+          <div class="hero-stat">
+            <strong>5,000+</strong>
+            <span>Cashless garages</span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -327,37 +304,69 @@
           </div>
         </div>
         
-        <div class="faq-container">
-          <h3 style="margin-bottom: var(--space-4);">Frequently Asked Questions</h3>
-          
-          <div class="faq-item">
-            <div class="faq-question">
-              What documents do I need to file a claim? <i class="ph ph-caret-down"></i>
-            </div>
-            <div class="faq-answer">
-              <p>You typically need your policy number, vehicle registration certificate (RC), driving license of the person driving at the time of the incident, and photos of the damage. An FIR copy may be required for major accidents or theft.</p>
-            </div>
-          </div>
-          
-          <div class="faq-item">
-            <div class="faq-question">
-              How long does claim settlement take? <i class="ph ph-caret-down"></i>
-            </div>
-            <div class="faq-answer">
-              <p>For cashless claims at our network garages, approval is usually given within 2-4 hours of the surveyor's report. Total settlement time depends on the extent of repairs required.</p>
-            </div>
-          </div>
-          
-          <div class="faq-item">
-            <div class="faq-question">
-              Can I claim if I don't use a network garage? <i class="ph ph-caret-down"></i>
-            </div>
-            <div class="faq-answer">
-              <p>Yes, you can use any garage. However, you will need to pay for the repairs upfront and submit the original bills and receipts for reimbursement, which usually takes 7-10 working days to process.</p>
-            </div>
-          </div>
-          
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+      <div class="container">
+        <div class="section-header animate-on-scroll">
+          <span class="eyebrow"><i class="ph-fill ph-question"></i> Claim questions</span>
+          <h2>What to expect when you claim</h2>
+          <p>The day it matters, you should not have to read fine print. Here is how it works.</p>
         </div>
+
+        <div class="faq-list" data-accordion>
+          <div class="faq-item">
+            <button class="faq-question" id="claim-faq1-q" aria-expanded="false" aria-controls="claim-faq1-a">
+              <span>How soon do I need to report an accident?</span>
+              <i class="ph ph-plus faq-icon"></i>
+            </button>
+            <div class="faq-answer" id="claim-faq1-a" role="region" aria-labelledby="claim-faq1-q">
+              <div class="faq-answer-inner">
+                <p>Tell us within 48 hours of the incident — ideally straight from the roadside using the form above. Early intimation lets us dispatch a surveyor quickly and keeps your claim clean. For theft or any third-party injury, file a police FIR first and report to us the same day.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" id="claim-faq2-q" aria-expanded="false" aria-controls="claim-faq2-a">
+              <span>What documents do I need to file a claim?</span>
+              <i class="ph ph-plus faq-icon"></i>
+            </button>
+            <div class="faq-answer" id="claim-faq2-a" role="region" aria-labelledby="claim-faq2-q">
+              <div class="faq-answer-inner">
+                <p>Your policy number, the vehicle registration certificate, the driving licence of whoever was driving, and photographs of the damage. Theft and third-party claims also need a copy of the FIR. For reimbursement claims, keep the original repair invoice and payment receipt.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" id="claim-faq3-q" aria-expanded="false" aria-controls="claim-faq3-a">
+              <span>What is the difference between a cashless and a reimbursement claim?</span>
+              <i class="ph ph-plus faq-icon"></i>
+            </button>
+            <div class="faq-answer" id="claim-faq3-a" role="region" aria-labelledby="claim-faq3-q">
+              <div class="faq-answer-inner">
+                <p>At any of our 5,000+ network garages the repair is cashless — we settle the approved amount directly with the workshop and you pay only your deductible and any non-covered items. If you use a garage outside the network, you pay the bill and we reimburse the approved amount, usually within five working days of receiving your documents.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" id="claim-faq4-q" aria-expanded="false" aria-controls="claim-faq4-a">
+              <span>Will filing a claim affect my no-claim bonus?</span>
+              <i class="ph ph-plus faq-icon"></i>
+            </button>
+            <div class="faq-answer" id="claim-faq4-a" role="region" aria-labelledby="claim-faq4-q">
+              <div class="faq-answer-inner">
+                <p>An own-damage claim resets your no-claim bonus to zero at the next renewal. Small repairs are sometimes cheaper to pay for yourself than to lose an accumulated 35&ndash;50% discount, and our claims team will tell you honestly when that is the case. Third-party-only claims and windscreen claims under most add-ons do not affect your NCB.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="faq-footnote">Still unsure? <a href="contact.html">Talk to a human</a> — our team answers 24/7.</p>
       </div>
     </section>
   </main>
@@ -372,9 +381,11 @@
           </a>
           <p>Premium auto insurance for your car and two-wheeler. Drive with confidence knowing we've got you covered.</p>
           <div class="social-links">
-            <a href="#" class="social-link"><i class="ph-fill ph-facebook-logo"></i></a>
-            <a href="#" class="social-link"><i class="ph-fill ph-twitter-logo"></i></a>
-            <a href="#" class="social-link"><i class="ph-fill ph-instagram-logo"></i></a>
+            <a href="#" class="social-link" aria-label="Apex Auto on Facebook"><i class="ph-fill ph-facebook-logo"></i></a>
+            <a href="#" class="social-link" aria-label="Apex Auto on X"><i class="ph-fill ph-x-logo"></i></a>
+            <a href="#" class="social-link" aria-label="Apex Auto on Instagram"><i class="ph-fill ph-instagram-logo"></i></a>
+            <a href="#" class="social-link" aria-label="Apex Auto on LinkedIn"><i class="ph-fill ph-linkedin-logo"></i></a>
+            <a href="#" class="social-link" aria-label="Apex Auto on YouTube"><i class="ph-fill ph-youtube-logo"></i></a>
           </div>
         </div>
         <div class="footer-col">

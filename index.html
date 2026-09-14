@@ -1,235 +1,860 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apex Auto Insurance | Bike & Car Insurance</title>
-  <meta name="description" content="Get the best coverage for your car and two-wheeler with Apex Auto Insurance. Fast claims, 24/7 support, and affordable premiums.">
-  
+  <title>Apex Auto Insurance | Bike &amp; Car Insurance</title>
+  <meta name="description"
+    content="Get the best coverage for your car and two-wheeler with Apex Auto Insurance. Fast claims, 24/7 support, and affordable premiums.">
+
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  
+
   <!-- Phosphor Icons -->
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
-  
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+
   <!-- Styles -->
   <link rel="stylesheet" href="assets/css/style.css">
-  
+
   <style>
-    /* Home specific styles */
+    /* ================= Hero ================= */
     .hero {
-      padding: 8rem 0 6rem;
-      background: linear-gradient(135deg, var(--bg-color) 0%, rgba(13, 110, 253, 0.05) 100%);
-      min-height: 80vh;
+      padding: 10rem 0 5rem;
+      min-height: 92vh;
       display: flex;
       align-items: center;
       position: relative;
       overflow: hidden;
     }
-    
+
     .hero::before {
       content: '';
       position: absolute;
-      top: -50%;
-      right: -10%;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(13, 110, 253, 0.1) 0%, transparent 70%);
+      top: -30%;
+      right: -12%;
+      width: 780px;
+      height: 780px;
+      background: radial-gradient(circle, rgba(var(--primary-rgb), 0.22) 0%, transparent 68%);
       border-radius: 50%;
       z-index: 0;
+      filter: blur(20px);
     }
-    
+
     .hero-container {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1.05fr 0.95fr;
       gap: var(--space-6);
       align-items: center;
       position: relative;
       z-index: 1;
     }
-    
+
+    .hero-content {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     .hero-content h1 {
       margin-bottom: var(--space-4);
+      line-height: 1.04;
     }
-    
-    .hero-content h1 span {
-      color: var(--primary);
-    }
-    
-    .hero-content p {
-      font-size: 1.125rem;
+
+    .hero-content>p {
+      font-size: 1.14rem;
+      max-width: 34rem;
       margin-bottom: var(--space-5);
     }
-    
+
     .hero-actions {
       display: flex;
+      justify-content: center;
       gap: var(--space-3);
-      margin-bottom: var(--space-6);
+      margin-bottom: var(--space-5);
+      flex-wrap: wrap;
     }
-    
-    .hero-image {
-      position: relative;
-      height: 400px;
-    }
-    
-    .hero-img-wrapper {
-      position: absolute;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      transition: var(--transition);
-    }
-    
-    .img-car {
-      top: 0;
-      right: 0;
-      width: 80%;
-      z-index: 2;
-    }
-    
-    .img-bike {
-      bottom: 0;
-      left: 0;
-      width: 70%;
-      z-index: 3;
-      border: 8px solid var(--bg-color);
-    }
-    
+
     .trust-badges {
       display: flex;
       align-items: center;
-      gap: var(--space-4);
-      font-size: 0.875rem;
+      justify-content: center;
+      gap: var(--space-5);
+      font-size: 0.9rem;
       color: var(--text-secondary);
+      flex-wrap: wrap;
     }
-    
+
     .trust-badge {
       display: flex;
       align-items: center;
       gap: var(--space-2);
+      font-weight: 500;
     }
-    
+
     .trust-badge i {
       color: var(--success);
-      font-size: 1.25rem;
+      font-size: 1.2rem;
     }
-    
+
+    /* Hero visual */
+    .hero-image {
+      position: relative;
+      height: 480px;
+      transition: transform 0.28s var(--ease-soft);
+      transform-style: preserve-3d;
+    }
+
+    .hero-img-wrapper {
+      position: absolute;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+      border: 1px solid var(--border-color);
+    }
+
+    .hero-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .img-car {
+      top: 0;
+      right: 0;
+      width: 82%;
+      height: 300px;
+      z-index: 2;
+    }
+
+    .img-bike {
+      bottom: 34px;
+      left: 0;
+      width: 62%;
+      height: 230px;
+      z-index: 3;
+      border: 8px solid var(--bg-color);
+      animation: floatY 7s var(--ease-soft) infinite;
+    }
+
+    /* Vehicle focus states driven by the hero toggle.
+       Uses opacity/filter — transform is owned by the float animation. */
+    .hero-img-wrapper {
+      filter: saturate(1);
+    }
+
+    .hero-image.focus-car .img-bike {
+      opacity: 0.45;
+      filter: saturate(0.35);
+    }
+
+    .hero-image.focus-bike .img-car {
+      opacity: 0.6;
+      filter: saturate(0.45);
+    }
+
+    /* ================= Marquee ================= */
+    .marquee {
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      background: var(--bg-elevated);
+      padding: 0;
+      overflow: hidden;
+      position: relative;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: var(--space-6);
+      width: max-content;
+      padding: 1.1rem 0;
+      animation: marquee 32s linear infinite;
+    }
+
+    .marquee:hover .marquee-track {
+      animation-play-state: paused;
+    }
+
+    @keyframes marquee {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    .marquee-item i {
+      color: var(--primary);
+      font-size: 1.15rem;
+    }
+
+    /* ================= Features ================= */
+    /* Three-card grids: 3-up on desktop/1024, 2-up with a centred orphan on
+       tablets, single column on small phones. */
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: var(--space-5);
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-4);
     }
-    
+
     .feature-card {
       text-align: left;
       align-items: flex-start;
+      padding: var(--space-5);
     }
-    
-    .feature-icon {
-      width: 60px;
-      height: 60px;
-      background-color: rgba(13, 110, 253, 0.1);
-      color: var(--primary);
-      border-radius: 50%;
+
+    /* Full-bleed photo band: negative margins cancel the card's padding,
+       and the card's own overflow:hidden clips it to the rounded corners. */
+    .feature-media {
+      position: relative;
+      align-self: stretch;
+      height: 260px;
+      margin: calc(var(--space-5) * -1) calc(var(--space-5) * -1) var(--space-4);
+      overflow: hidden;
+    }
+
+    .feature-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s var(--ease);
+    }
+
+    .feature-card:hover .feature-media img {
+      transform: scale(1.06);
+    }
+
+    .feature-card p {
+      margin-bottom: 0;
+    }
+
+    /* ================= Interactive Estimator ================= */
+    .estimator-section {
+      position: relative;
+      background: var(--bg-elevated);
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      overflow: hidden;
+    }
+
+    .estimator-section::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: -180px;
+      width: 900px;
+      height: 420px;
+      transform: translateX(-50%);
+      background: radial-gradient(ellipse at center, rgba(var(--primary-rgb), 0.14), transparent 70%);
+      pointer-events: none;
+    }
+
+    .estimator {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: var(--space-5);
+      align-items: start;
+    }
+
+    .estimator-panel {
+      background: var(--surface-color);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: var(--space-5);
+      box-shadow: var(--shadow);
+    }
+
+    .estimator-row {
       display: flex;
       align-items: center;
-      justify-content: center;
-      font-size: 2rem;
+      justify-content: space-between;
+      gap: var(--space-3);
+      margin-bottom: var(--space-2);
+    }
+
+    .estimator-label {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .estimator-label i {
+      color: var(--text-tertiary);
+      font-size: 1.05rem;
+    }
+
+    .estimator-value {
+      font-family: var(--font-heading);
+      font-size: 1.02rem;
+      font-weight: 600;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .estimator-field {
+      margin-bottom: var(--space-5);
+    }
+
+    .estimator-field:last-child {
+      margin-bottom: 0;
+    }
+
+    .estimator-hint {
+      font-size: 0.78rem;
+      color: var(--text-tertiary);
+      margin-top: 0.4rem;
+    }
+
+    /* Range slider */
+    input[type="range"].range {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 8px;
+      border-radius: var(--radius-pill);
+      background: var(--surface-2);
+      border: 1px solid var(--border-color);
+      outline: none;
+      cursor: pointer;
+      background-image: linear-gradient(90deg, var(--primary-400), var(--primary));
+      background-repeat: no-repeat;
+      background-size: 50% 100%;
+      transition: background-size 0.15s linear;
+    }
+
+    input[type="range"].range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--surface-color);
+      border: 3px solid var(--primary);
+      box-shadow: 0 6px 16px -6px rgba(var(--primary-rgb), 0.9);
+      cursor: grab;
+      transition: transform 0.2s var(--ease);
+    }
+
+    input[type="range"].range::-webkit-slider-thumb:hover {
+      transform: scale(1.14);
+    }
+
+    input[type="range"].range::-webkit-slider-thumb:active {
+      cursor: grabbing;
+      transform: scale(1.05);
+    }
+
+    input[type="range"].range::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--surface-color);
+      border: 3px solid var(--primary);
+      cursor: grab;
+    }
+
+    /* Chip groups */
+    .chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.6rem 1rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-color);
+      background: var(--surface-2);
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      user-select: none;
+    }
+
+    .chip i {
+      font-size: 1.05rem;
+    }
+
+    .chip:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .chip.active {
+      background-image: var(--gradient-brand);
+      border-color: transparent;
+      color: #fff;
+      box-shadow: 0 10px 22px -14px rgba(var(--primary-rgb), 0.95);
+    }
+
+    .chip .chip-price {
+      font-size: 0.76rem;
+      opacity: 0.75;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Quote card */
+    .quote-card {
+      position: sticky;
+      top: 100px;
+      border-radius: var(--radius-xl);
+      padding: var(--space-5);
+      color: #fff;
+      background:
+        radial-gradient(420px 220px at 100% 0%, rgba(255, 255, 255, 0.16), transparent 60%),
+        linear-gradient(160deg, #1e1b4b 0%, #312e81 45%, #0e7490 140%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+
+    [data-theme="dark"] .quote-card {
+      background:
+        radial-gradient(420px 220px at 100% 0%, rgba(255, 255, 255, 0.1), transparent 60%),
+        linear-gradient(160deg, #171a35 0%, #26235c 45%, #0b4f63 140%);
+    }
+
+    .quote-card h3,
+    .quote-card h4,
+    .quote-card p {
+      color: #fff;
+    }
+
+    .quote-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.76rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.72);
+      margin-bottom: var(--space-3);
+    }
+
+    .quote-amount {
+      display: flex;
+      align-items: baseline;
+      gap: 0.35rem;
+      font-family: var(--font-heading);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+
+    .quote-amount .currency {
+      font-size: 1.6rem;
+      font-weight: 500;
+      opacity: 0.85;
+    }
+
+    .quote-amount .figure {
+      font-size: clamp(2.6rem, 2rem + 2vw, 3.4rem);
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .quote-amount .period {
+      font-size: 0.95rem;
+      opacity: 0.7;
+      font-family: var(--font-body);
+    }
+
+    .quote-sub {
+      font-size: 0.88rem;
+      color: rgba(255, 255, 255, 0.72);
       margin-bottom: var(--space-4);
     }
-    
-    .stats-section {
-      background-color: var(--primary);
+
+    .quote-sub strong {
       color: #fff;
-      padding: var(--space-8) 0;
+      font-weight: 600;
     }
-    
+
+    /* Breakdown bar */
+    .breakdown-bar {
+      display: flex;
+      height: 12px;
+      border-radius: var(--radius-pill);
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.12);
+      margin-bottom: var(--space-3);
+    }
+
+    .breakdown-seg {
+      height: 100%;
+      transition: width 0.55s var(--ease);
+    }
+
+    .seg-od {
+      background: linear-gradient(90deg, #818cf8, #6366f1);
+    }
+
+    .seg-tp {
+      background: linear-gradient(90deg, #22d3ee, #06b6d4);
+    }
+
+    .seg-addon {
+      background: linear-gradient(90deg, #fbbf24, #f59e0b);
+    }
+
+    .breakdown-legend {
+      display: grid;
+      gap: 0.55rem;
+      margin-bottom: var(--space-4);
+    }
+
+    .legend-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.86rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .legend-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    .legend-row span:last-child {
+      margin-left: auto;
+      font-weight: 600;
+      color: #fff;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .quote-divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.14);
+      margin: var(--space-4) 0;
+    }
+
+    .coverage-list {
+      display: grid;
+      gap: 0.55rem;
+      margin-bottom: var(--space-4);
+    }
+
+    .coverage-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.88rem;
+      color: rgba(255, 255, 255, 0.86);
+    }
+
+    .coverage-item i {
+      font-size: 1.1rem;
+      color: #6ee7b7;
+      flex-shrink: 0;
+    }
+
+    .coverage-item.muted {
+      color: rgba(255, 255, 255, 0.38);
+    }
+
+    .coverage-item.muted i {
+      color: rgba(255, 255, 255, 0.28);
+    }
+
+    .quote-card .btn-accent {
+      width: 100%;
+    }
+
+    .quote-note {
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.55);
+      margin: var(--space-3) 0 0;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .quote-flash {
+      animation: flashPulse 0.5s var(--ease);
+    }
+
+    @keyframes flashPulse {
+      0% {
+        transform: scale(1);
+      }
+
+      40% {
+        transform: scale(1.022);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    /* ================= Stats ================= */
+    .stats-section {
+      position: relative;
+      padding: var(--space-8) 0;
+      overflow: hidden;
+    }
+
+    .stats-section .section-header {
+      margin-bottom: var(--space-6);
+    }
+
+    .stats-inner {
+      border-radius: var(--radius-xl);
+      padding: var(--space-6) var(--space-5);
+      background:
+        radial-gradient(600px 240px at 12% 0%, rgba(255, 255, 255, 0.14), transparent 60%),
+        linear-gradient(135deg, #312e81 0%, #4338ca 45%, #0891b2 100%);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    [data-theme="dark"] .stats-inner {
+      background:
+        radial-gradient(600px 240px at 12% 0%, rgba(255, 255, 255, 0.08), transparent 60%),
+        linear-gradient(135deg, #1e1b4b 0%, #312e81 45%, #0e5a70 100%);
+    }
+
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: var(--space-5);
       text-align: center;
     }
-    
+
+    .stat-item+.stat-item {
+      border-left: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
     .stat-item h2 {
       color: #fff;
-      font-size: 3rem;
-      margin-bottom: var(--space-2);
+      font-size: clamp(2.4rem, 2rem + 1.6vw, 3.1rem);
+      margin-bottom: var(--space-1);
+      font-variant-numeric: tabular-nums;
     }
-    
+
     .stat-item p {
-      color: rgba(255, 255, 255, 0.8);
+      color: rgba(255, 255, 255, 0.78);
       margin-bottom: 0;
-      font-size: 1.125rem;
+      font-size: 1rem;
     }
-    
+
+    /* ================= Testimonials ================= */
     .testimonials {
-      background-color: var(--surface-color);
+      background-color: var(--bg-elevated);
+      border-top: 1px solid var(--border-color);
     }
-    
+
     .testimonial-card {
       text-align: left;
       align-items: flex-start;
     }
-    
+
+    .testimonial-card>p {
+      font-size: 1rem;
+      color: var(--text-primary);
+      line-height: 1.7;
+    }
+
     .stars {
       color: var(--accent);
       margin-bottom: var(--space-3);
+      font-size: 1.05rem;
     }
-    
+
     .client-info {
       display: flex;
       align-items: center;
       gap: var(--space-3);
       margin-top: auto;
       padding-top: var(--space-4);
+      width: 100%;
+      border-top: 1px solid var(--border-color);
     }
-    
+
     .client-avatar {
-      width: 48px;
-      height: 48px;
+      width: 46px;
+      height: 46px;
+      flex-shrink: 0;
+      aspect-ratio: 1;
       border-radius: 50%;
+      /* Square source + face-weighted position keeps heads inside the circle. */
       object-fit: cover;
+      object-position: center top;
+      border: 2px solid var(--surface-color);
+      box-shadow: var(--shadow-sm);
     }
-    
+
+    .client-info h4 {
+      margin-bottom: 0;
+      font-size: 1rem;
+    }
+
+    /* ================= CTA ================= */
     .cta-section {
+      padding: var(--space-8) 0 var(--space-12);
+    }
+
+    .cta-inner {
+      position: relative;
       text-align: center;
-      padding: var(--space-12) 0;
-      background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&q=80&w=1920') center/cover no-repeat;
+      padding: var(--space-8) var(--space-5);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      background: linear-gradient(rgba(9, 12, 26, 0.82), rgba(9, 12, 26, 0.9)), url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&q=80&w=1920') center/cover no-repeat;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .cta-inner h2,
+    .cta-inner p {
       color: #fff;
     }
-    
-    .cta-section h2, .cta-section p {
-      color: #fff;
+
+    .cta-inner p {
+      opacity: 0.82;
     }
-    
-    .cta-section p {
-      opacity: 0.9;
+
+    @media (max-width: 980px) {
+      .estimator {
+        grid-template-columns: 1fr;
+      }
+
+      .quote-card {
+        position: static;
+      }
     }
-    
+
     @media (max-width: 768px) {
       .hero {
-        padding-top: 6rem;
+        padding: 7.5rem 0 3rem;
+        min-height: 0;
       }
+
       .hero-container {
         grid-template-columns: 1fr;
       }
-      .hero-image {
-        height: 300px;
+
+      .hero-visual-shell {
         order: -1;
-        margin-bottom: var(--space-5);
+        margin-bottom: var(--space-6);
       }
-      .hero-actions {
-        flex-direction: column;
+
+      /* Hero stack gets more room once it moves above the copy. */
+      .hero-image {
+        height: 470px;
+        max-width: 620px;
+        margin-inline: auto;
       }
+
+      .img-car {
+        height: 300px;
+        width: 88%;
+      }
+
+      .img-bike {
+        height: 240px;
+        width: 68%;
+        bottom: 24px;
+      }
+
+      .hero-actions .btn {
+        flex: 1 1 100%;
+      }
+
+      /* Stats stay 3-up on tablets, just tighter. */
+      .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-3);
+      }
+
+      /* 2-up; a lone third card spans both tracks and is centred. */
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .features-grid> :last-child:nth-child(odd) {
+        grid-column: 1 / -1;
+        width: calc(50% - (var(--space-4) / 2));
+        margin-inline: auto;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .features-grid> :last-child:nth-child(odd) {
+        width: auto;
+        margin-inline: 0;
+      }
+
+      /* Stats stack one per row, dividers turn horizontal. */
       .stats-grid {
         grid-template-columns: 1fr;
-        gap: var(--space-6);
+        gap: var(--space-5);
+      }
+
+      .stat-item+.stat-item {
+        border-left: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.14);
+        padding-top: var(--space-5);
+      }
+
+      /* Phones keep the smaller stack — the tablet sizes overflow here. */
+      .hero-image {
+        height: 340px;
+      }
+
+      .img-car {
+        height: 220px;
+        width: 82%;
+      }
+
+      .img-bike {
+        height: 170px;
+        width: 62%;
+        bottom: 20px;
       }
     }
   </style>
 </head>
+
 <body>
 
   <!-- Navbar -->
@@ -240,9 +865,9 @@
       </a>
       <nav class="nav-links">
         <a href="index.html" class="nav-link active">Home</a>
+        <a href="about.html" class="nav-link">About</a>
         <a href="plans.html" class="nav-link">Plans</a>
         <a href="claims.html" class="nav-link">Claims</a>
-        <a href="about.html" class="nav-link">About</a>
         <a href="contact.html" class="nav-link">Contact</a>
       </nav>
       <div class="nav-actions">
@@ -265,9 +890,9 @@
     </button>
     <nav class="drawer-links">
       <a href="index.html" class="drawer-link active">Home</a>
+      <a href="about.html" class="drawer-link">About</a>
       <a href="plans.html" class="drawer-link">Plans</a>
       <a href="claims.html" class="drawer-link">Claims</a>
-      <a href="about.html" class="drawer-link">About</a>
       <a href="contact.html" class="drawer-link">Contact</a>
     </nav>
     <div class="drawer-actions">
@@ -283,143 +908,344 @@
     <section class="hero">
       <div class="container hero-container">
         <div class="hero-content animate-up">
-          <h1>Insure Your Ride with <span>Confidence</span></h1>
-          <p>Whether you're hitting the open road on two wheels or four, Apex Auto offers comprehensive coverage, rapid claims, and unbeatable support.</p>
-          
-          <div class="vehicle-toggle">
-            <button class="vehicle-toggle-btn active" onclick="window.location.href='plans.html?type=bike'">
+          <span class="eyebrow">
+            <span class="eyebrow-dot"></span> IRDAI-aligned cover · 98.5% settled
+          </span>
+
+          <h1>Insure your ride with <span class="text-gradient">total confidence</span></h1>
+          <p>Two wheels or four — Apex Auto delivers comprehensive coverage, claims settled in hours, and support that
+            actually picks up. Built for the way you drive.</p>
+
+          <div class="vehicle-toggle" id="hero-vehicle-toggle" role="tablist" aria-label="Choose vehicle type">
+            <button class="vehicle-toggle-btn active" data-vehicle="bike" role="tab" aria-selected="true">
               <i class="ph-fill ph-motorcycle"></i> Two-Wheeler
             </button>
-            <button class="vehicle-toggle-btn" onclick="window.location.href='plans.html?type=car'">
+            <button class="vehicle-toggle-btn" data-vehicle="car" role="tab" aria-selected="false">
               <i class="ph-fill ph-car-profile"></i> Car
             </button>
           </div>
-          
+
           <div class="hero-actions">
-            <a href="plans.html" class="btn btn-primary">View Plans</a>
-            <a href="claims.html" class="btn btn-outline">File a Claim</a>
+            <a href="#estimator" class="btn btn-primary btn-lg">Estimate my premium</a>
+            <a href="claims.html" class="btn btn-outline btn-lg">File a claim</a>
           </div>
-          
-          <div class="trust-badges">
-            <div class="trust-badge">
-              <i class="ph-fill ph-check-circle"></i> IRDAI Approved
-            </div>
-            <div class="trust-badge">
-              <i class="ph-fill ph-check-circle"></i> 98% Claim Settlement
-            </div>
-          </div>
+
+
         </div>
-        
-        <div class="hero-image animate-up delay-2">
-          <div class="hero-img-wrapper img-car">
-            <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&q=80&w=800" alt="Sleek sports car on road">
-          </div>
-          <div class="hero-img-wrapper img-bike">
-            <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&q=80&w=800" alt="Motorcycle rider with helmet">
+
+        <div class="hero-visual-shell animate-up delay-2">
+          <div class="hero-image focus-bike" id="hero-visual" data-tilt="5">
+            <div class="hero-img-wrapper img-car">
+              <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&q=80&w=900"
+                alt="Sleek sports car on an open road">
+            </div>
+            <div class="hero-img-wrapper img-bike">
+              <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&q=80&w=900"
+                alt="Motorcycle rider wearing a helmet">
+            </div>
           </div>
         </div>
       </div>
     </section>
+    <!-- Trust marquee -->
+    <section class="marquee">
+      <div class="marquee-track">
+        <div class="marquee-item"><i class="ph-fill ph-shield-check"></i> Cashless repairs nationwide</div>
+        <div class="marquee-item"><i class="ph-fill ph-clock-countdown"></i> 24/7 roadside assistance</div>
+        <div class="marquee-item"><i class="ph-fill ph-seal-check"></i> Zero-depreciation add-on</div>
+        <div class="marquee-item"><i class="ph-fill ph-file-text"></i> Paperless policy issue</div>
+        <div class="marquee-item"><i class="ph-fill ph-hand-coins"></i> No-claim bonus up to 50%</div>
+        <div class="marquee-item"><i class="ph-fill ph-headset"></i> Human support, always</div>
+        <div class="marquee-item" aria-hidden="true"><i class="ph-fill ph-shield-check"></i> Cashless repairs nationwide
+        </div>
+        <div class="marquee-item" aria-hidden="true"><i class="ph-fill ph-clock-countdown"></i> 24/7 roadside assistance
+        </div>
+        <div class="marquee-item" aria-hidden="true"><i class="ph-fill ph-seal-check"></i> Zero-depreciation add-on
+        </div>
+        <div class="marquee-item" aria-hidden="true"><i class="ph-fill ph-file-text"></i> Paperless policy issue</div>
+        <div class="marquee-item" aria-hidden="true"><i class="ph-fill ph-hand-coins"></i> No-claim bonus up to 50%
+        </div>
+        <div class="marquee-item" aria-hidden="true"><i class="ph-fill ph-headset"></i> Human support, always</div>
+      </div>
+    </section>
+    <!-- Stats -->
+    <section class="stats-section">
+      <div class="container animate-on-scroll">
+        <div class="section-header">
+          <span class="eyebrow"><i class="ph-fill ph-chart-line-up"></i> By the numbers</span>
+          <h2>Proof, not promises.</h2>
+          <p>Every figure below comes from how we actually settled, serviced and supported real policies.</p>
+        </div>
+
+        <div class="stats-inner">
+          <div class="stats-grid">
+            <div class="stat-item">
+              <h2><span data-count-to="98.5" data-suffix="%">0%</span></h2>
+              <p>Claim settlement ratio</p>
+            </div>
+            <div class="stat-item">
+              <h2><span data-count-to="2.1" data-suffix="M+">0</span></h2>
+              <p>Vehicles protected</p>
+            </div>
+            <div class="stat-item">
+              <h2><span data-count-to="4.9" data-suffix="/5">0</span></h2>
+              <p>Average customer rating</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
 
     <!-- Features -->
-    <section class="container animate-on-scroll">
-      <div class="section-header">
-        <h2>Why Choose Apex Auto?</h2>
-        <p>We provide more than just a policy. We provide peace of mind on every journey.</p>
+    <section class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="eyebrow"><i class="ph-fill ph-sparkle"></i> Why Apex</span>
+        <h2>More than a policy. A safety net.</h2>
+        <p>Everything we build is measured against one question: does this get you back on the road faster?</p>
       </div>
-      
-      <div class="features-grid">
+
+      <div class="features-grid reveal-stagger">
         <div class="card feature-card">
-          <div class="feature-icon">
-            <i class="ph ph-lightning"></i>
+          <div class="feature-media">
+            <img src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&q=80&w=800"
+              alt="Filing a claim on a smartphone" loading="lazy">
           </div>
-          <h3>Lightning Fast Claims</h3>
-          <p>Our digital-first claim process means you can file a claim in minutes and get approved in hours, not days.</p>
+          <h3> Fast claims</h3>
+          <p>Our digital-first claim journey means you file in minutes and get approved in hours — not days of
+            back-and-forth.</p>
         </div>
-        
+
         <div class="card feature-card">
-          <div class="feature-icon">
-            <i class="ph ph-wrench"></i>
+          <div class="feature-media">
+            <img src="https://images.unsplash.com/photo-1625047509168-a7026f36de04?auto=format&fit=crop&q=80&w=800"
+              alt="Mechanic servicing a car in a network garage" loading="lazy">
           </div>
-          <h3>5000+ Network Garages</h3>
-          <p>Access our extensive network of premium garages across the country for cashless, hassle-free repairs.</p>
+          <h3>5,000+ garages</h3>
+          <p>A vetted national network of premium workshops for cashless, warranty-safe repairs on both bikes and cars.
+          </p>
         </div>
-        
+
         <div class="card feature-card">
-          <div class="feature-icon">
-            <i class="ph ph-lifebuoy"></i>
+          <div class="feature-media">
+            <img src="https://images.unsplash.com/photo-1504215680853-026ed2a45def?auto=format&fit=crop&q=80&w=800"
+              alt="Car stopped on the roadside at dusk" loading="lazy">
           </div>
-          <h3>24/7 Roadside Assist</h3>
-          <p>Flat tire? Dead battery? We're always just a call away, ready to get you back on the road anywhere, anytime.</p>
+          <h3>24/7 roadside assist</h3>
+          <p>Flat tyre at midnight? Dead battery in the rain? One tap and help is dispatched to your live location.</p>
         </div>
       </div>
     </section>
 
-    <!-- Stats -->
-    <section class="stats-section animate-on-scroll">
-      <div class="container stats-grid">
-        <div class="stat-item">
-          <h2>98.5%</h2>
-          <p>Claim Settlement Ratio</p>
+    <!-- ===== INTERACTIVE PREMIUM ESTIMATOR ===== -->
+    <section class="estimator-section" id="estimator">
+      <div class="container">
+        <div class="section-header animate-on-scroll">
+          <span class="eyebrow"><i class="ph-fill ph-sliders-horizontal"></i> Interactive estimate</span>
+          <h2>Build your cover, watch the price move</h2>
+          <p>Drag, tap and toggle. Your indicative annual premium recalculates live — no forms, no email, no sales call.
+          </p>
         </div>
-        <div class="stat-item">
-          <h2>2M+</h2>
-          <p>Happy Customers</p>
-        </div>
-        <div class="stat-item">
-          <h2>24/7</h2>
-          <p>Expert Support</p>
+
+        <div class="estimator animate-on-scroll">
+          <!-- Controls -->
+          <div class="estimator-panel">
+            <div class="estimator-field">
+              <div class="estimator-row">
+                <span class="estimator-label"><i class="ph-fill ph-steering-wheel"></i> Vehicle type</span>
+              </div>
+              <div class="chip-group" id="est-vehicle" role="radiogroup" aria-label="Vehicle type">
+                <button type="button" class="chip active" data-vehicle="bike" role="radio" aria-checked="true"><i
+                    class="ph-fill ph-motorcycle"></i> Two-Wheeler</button>
+                <button type="button" class="chip" data-vehicle="car" role="radio" aria-checked="false"><i
+                    class="ph-fill ph-car-profile"></i> Car</button>
+              </div>
+            </div>
+
+            <div class="estimator-field">
+              <div class="estimator-row">
+                <label class="estimator-label" for="est-idv"><i class="ph-fill ph-currency-inr"></i> Insured value
+                  (IDV)</label>
+                <span class="estimator-value" id="est-idv-out">₹85,000</span>
+              </div>
+              <input type="range" class="range" id="est-idv" min="20000" max="2500000" step="5000" value="85000"
+                aria-label="Insured declared value in rupees">
+              <p class="estimator-hint">The market value we'd settle at for a total loss or theft.</p>
+            </div>
+
+            <div class="estimator-field">
+              <div class="estimator-row">
+                <label class="estimator-label" for="est-age"><i class="ph-fill ph-calendar-dots"></i> Vehicle
+                  age</label>
+                <span class="estimator-value" id="est-age-out">2 years</span>
+              </div>
+              <input type="range" class="range" id="est-age" min="0" max="15" step="1" value="2"
+                aria-label="Vehicle age in years">
+              <p class="estimator-hint">Older vehicles carry a higher own-damage rate.</p>
+            </div>
+
+            <div class="estimator-field">
+              <div class="estimator-row">
+                <span class="estimator-label"><i class="ph-fill ph-map-pin"></i> Where you drive</span>
+              </div>
+              <div class="chip-group" id="est-city" role="radiogroup" aria-label="City tier">
+                <button type="button" class="chip active" data-city="metro" role="radio"
+                  aria-checked="true">Metro</button>
+                <button type="button" class="chip" data-city="tier1" role="radio" aria-checked="false">Tier 1</button>
+                <button type="button" class="chip" data-city="tier2" role="radio" aria-checked="false">Tier 2 &amp;
+                  rural</button>
+              </div>
+            </div>
+
+            <div class="estimator-field">
+              <div class="estimator-row">
+                <span class="estimator-label"><i class="ph-fill ph-trophy"></i> No-claim bonus</span>
+              </div>
+              <div class="chip-group" id="est-ncb" role="radiogroup" aria-label="No claim bonus">
+                <button type="button" class="chip active" data-ncb="0" role="radio" aria-checked="true">None</button>
+                <button type="button" class="chip" data-ncb="20" role="radio" aria-checked="false">20%</button>
+                <button type="button" class="chip" data-ncb="35" role="radio" aria-checked="false">35%</button>
+                <button type="button" class="chip" data-ncb="50" role="radio" aria-checked="false">50%</button>
+              </div>
+            </div>
+
+            <div class="estimator-field">
+              <div class="estimator-row">
+                <span class="estimator-label"><i class="ph-fill ph-puzzle-piece"></i> Add-ons</span>
+              </div>
+              <div class="chip-group" id="est-addons">
+                <button type="button" class="chip" data-addon="zeroDep" aria-pressed="false">
+                  <i class="ph-fill ph-shield-star"></i> Zero depreciation <span class="chip-price">+15%</span>
+                </button>
+                <button type="button" class="chip" data-addon="engine" aria-pressed="false">
+                  <i class="ph-fill ph-engine"></i> Engine protect <span class="chip-price">+8%</span>
+                </button>
+                <button type="button" class="chip" data-addon="rsa" aria-pressed="false">
+                  <i class="ph-fill ph-tow-truck"></i> Roadside assist <span class="chip-price">₹499</span>
+                </button>
+                <button type="button" class="chip" data-addon="consumables" aria-pressed="false">
+                  <i class="ph-fill ph-drop"></i> Consumables <span class="chip-price">+5%</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live quote -->
+          <aside class="quote-card" id="quote-card" aria-live="polite">
+            <span class="quote-eyebrow"><i class="ph-fill ph-lightning"></i> Live estimate</span>
+
+            <div class="quote-amount">
+              <span class="currency">₹</span>
+              <span class="figure" id="quote-figure">0</span>
+              <span class="period">/ year</span>
+            </div>
+            <p class="quote-sub">That's about <strong id="quote-monthly">₹0</strong> a month · <span
+                id="quote-vehicle-label">Two-Wheeler</span> · <span id="quote-idv-label">₹85,000</span> cover</p>
+
+            <div class="breakdown-bar" role="img" aria-label="Premium breakdown">
+              <div class="breakdown-seg seg-od" id="seg-od" style="width: 60%"></div>
+              <div class="breakdown-seg seg-tp" id="seg-tp" style="width: 30%"></div>
+              <div class="breakdown-seg seg-addon" id="seg-addon" style="width: 10%"></div>
+            </div>
+
+            <div class="breakdown-legend">
+              <div class="legend-row">
+                <span class="legend-dot" style="background:#6366f1"></span> Own damage <span id="val-od">₹0</span>
+              </div>
+              <div class="legend-row">
+                <span class="legend-dot" style="background:#06b6d4"></span> Third-party liability <span
+                  id="val-tp">₹0</span>
+              </div>
+              <div class="legend-row">
+                <span class="legend-dot" style="background:#f59e0b"></span> Add-ons <span id="val-addon">₹0</span>
+              </div>
+            </div>
+
+            <div class="quote-divider"></div>
+
+            <h4 style="margin-bottom: var(--space-3); font-size: 0.95rem;">What's included</h4>
+            <div class="coverage-list" id="coverage-list">
+              <div class="coverage-item"><i class="ph-fill ph-check-circle"></i> Accident, fire &amp; theft cover</div>
+              <div class="coverage-item"><i class="ph-fill ph-check-circle"></i> ₹15 lakh owner-driver protection</div>
+              <div class="coverage-item muted" data-coverage="zeroDep"><i class="ph-fill ph-circle-dashed"></i> Zero
+                depreciation on parts</div>
+              <div class="coverage-item muted" data-coverage="engine"><i class="ph-fill ph-circle-dashed"></i> Engine
+                &amp; gearbox protection</div>
+              <div class="coverage-item muted" data-coverage="rsa"><i class="ph-fill ph-circle-dashed"></i> 24/7 towing
+                &amp; roadside help</div>
+              <div class="coverage-item muted" data-coverage="consumables"><i class="ph-fill ph-circle-dashed"></i>
+                Oils, nuts &amp; consumables</div>
+            </div>
+
+            <a href="plans.html" class="btn btn-accent" id="quote-cta">See matching plans</a>
+            <p class="quote-note">Illustrative estimate only. Final premium depends on inspection, RTO zone and declared
+              history.</p>
+          </aside>
         </div>
       </div>
     </section>
 
     <!-- Testimonials -->
     <section class="testimonials">
-      <div class="container animate-on-scroll">
-        <div class="section-header">
-          <h2>Loved by Drivers & Riders</h2>
-          <p>Don't just take our word for it. Hear from our community.</p>
+      <div class="container">
+        <div class="section-header animate-on-scroll">
+          <span class="eyebrow"><i class="ph-fill ph-chat-circle-text"></i> Real riders, real drivers</span>
+          <h2>Loved by people who actually claimed</h2>
+          <p>Anyone can sell a policy. We're judged on the day it matters.</p>
         </div>
-        
-        <div class="features-grid">
+
+        <div class="features-grid reveal-stagger">
           <div class="card testimonial-card">
             <div class="stars">
-              <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+              <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
+                class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
             </div>
-            <p>"The claim process for my bike accident was incredibly smooth. The cashless repair at their network garage saved me a ton of hassle."</p>
+            <p>"The claim process after my bike accident was genuinely smooth. Cashless repair at their network garage —
+              I paid nothing at the counter."</p>
             <div class="client-info">
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100" alt="Rahul S." class="client-avatar">
+              <img
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&crop=faces&q=80&w=140&h=140"
+                alt="Rahul S." class="client-avatar">
               <div>
                 <h4>Rahul S.</h4>
-                <p style="margin:0; font-size:0.875rem;">Two-Wheeler Owner</p>
+                <p style="margin:0; font-size:0.85rem;">Two-Wheeler owner</p>
               </div>
             </div>
           </div>
-          
+
           <div class="card testimonial-card">
             <div class="stars">
-              <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+              <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
+                class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
             </div>
-            <p>"I switched my car insurance to Apex last year. Not only are the premiums better, but their 24/7 roadside assistance actually answered instantly when my battery died."</p>
+            <p>"Switched my car policy to Apex last year. Better premium, and their roadside team answered on the second
+              ring when my battery died."</p>
             <div class="client-info">
-              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100" alt="Priya M." class="client-avatar">
+              <img
+                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&crop=faces&q=80&w=140&h=140"
+                alt="Priya M." class="client-avatar">
               <div>
                 <h4>Priya M.</h4>
-                <p style="margin:0; font-size:0.875rem;">Car Owner</p>
+                <p style="margin:0; font-size:0.85rem;">Car owner</p>
               </div>
             </div>
           </div>
-          
+
           <div class="card testimonial-card">
             <div class="stars">
-              <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+              <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
+                class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
             </div>
-            <p>"Transparency is what I value most. The premium calculator is spot on, and there are no hidden exclusions. Highly recommended for any vehicle."</p>
+            <p>"Transparency is what I value. The estimator matched my final premium almost to the rupee, and no
+              exclusions hidden in fine print."</p>
             <div class="client-info">
-              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=100" alt="Amit V." class="client-avatar">
+              <img
+                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&crop=faces&q=80&w=140&h=140"
+                alt="Amit V." class="client-avatar">
               <div>
                 <h4>Amit V.</h4>
-                <p style="margin:0; font-size:0.875rem;">Multi-Vehicle Owner</p>
+                <p style="margin:0; font-size:0.85rem;">Multi-vehicle owner</p>
               </div>
             </div>
           </div>
@@ -428,15 +1254,15 @@
     </section>
 
     <!-- CTA -->
-    <section class="cta-section animate-on-scroll">
+    <section class="cta-section">
       <div class="container">
-        <div class="section-header" style="margin-bottom: var(--space-6);">
-          <h2>Ready to secure your journey?</h2>
-          <p>Get a personalized quote in less than 2 minutes. No paperwork required.</p>
+        <div class="cta-inner animate-on-scroll">
+          <div class="section-header" style="margin-bottom: var(--space-5);">
+            <h2>Ready to secure your journey?</h2>
+            <p>A personalised quote takes under two minutes. No paperwork, no waiting on hold.</p>
+          </div>
+          <a href="plans.html" class="btn btn-accent btn-lg">Get your estimate</a>
         </div>
-        <a href="plans.html" class="btn btn-accent" style="padding: 1rem 2rem; font-size: 1.125rem;">
-          Get Your Estimate <i class="ph ph-arrow-right"></i>
-        </a>
       </div>
     </section>
   </main>
@@ -449,11 +1275,14 @@
           <a href="index.html" class="nav-brand" style="margin-bottom: 1rem; display: inline-flex;">
             <i class="ph-fill ph-shield-check"></i> Apex Auto
           </a>
-          <p>Premium auto insurance for your car and two-wheeler. Drive with confidence knowing we've got you covered.</p>
+          <p>Premium auto insurance for your car and two-wheeler. Drive with confidence knowing we've got you covered.
+          </p>
           <div class="social-links">
-            <a href="#" class="social-link"><i class="ph-fill ph-facebook-logo"></i></a>
-            <a href="#" class="social-link"><i class="ph-fill ph-twitter-logo"></i></a>
-            <a href="#" class="social-link"><i class="ph-fill ph-instagram-logo"></i></a>
+            <a href="#" class="social-link" aria-label="Apex Auto on Facebook"><i class="ph-fill ph-facebook-logo"></i></a>
+            <a href="#" class="social-link" aria-label="Apex Auto on X"><i class="ph-fill ph-x-logo"></i></a>
+            <a href="#" class="social-link" aria-label="Apex Auto on Instagram"><i class="ph-fill ph-instagram-logo"></i></a>
+            <a href="#" class="social-link" aria-label="Apex Auto on LinkedIn"><i class="ph-fill ph-linkedin-logo"></i></a>
+            <a href="#" class="social-link" aria-label="Apex Auto on YouTube"><i class="ph-fill ph-youtube-logo"></i></a>
           </div>
         </div>
         <div class="footer-col">
@@ -478,18 +1307,21 @@
           <h4>Support</h4>
           <div class="footer-links">
             <a href="contact.html">Help Center</a>
-            <a href="#">Terms & Conditions</a>
+            <a href="#">Terms &amp; Conditions</a>
             <a href="#">Privacy Policy</a>
           </div>
         </div>
       </div>
       <div class="footer-bottom">
         <p>&copy; 2026 Apex Auto Insurance. All rights reserved.</p>
-        <p class="disclosure">Apex Auto Insurance is a placeholder insurance brand for demonstration purposes. Not a licensed insurer. Premiums shown are illustrative estimates only.</p>
+        <p class="disclosure">Apex Auto Insurance is a placeholder insurance brand for demonstration purposes. Not a
+          licensed insurer. Premiums shown are illustrative estimates only.</p>
       </div>
     </div>
   </footer>
 
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/estimator.js"></script>
 </body>
+
 </html>

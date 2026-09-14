@@ -9,14 +9,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  
   <link rel="stylesheet" href="assets/css/style.css">
   
   <style>
-    .page-header {
-      padding: 8rem 0 4rem;
-      background: linear-gradient(135deg, var(--bg-color) 0%, rgba(13, 110, 253, 0.05) 100%);
-      text-align: center;
-    }
     
     .plan-filters {
       display: flex;
@@ -47,10 +45,10 @@
     }
     
     .filter-btn.active {
-      background-color: var(--primary);
+      background-image: var(--gradient-brand);
       color: #ffffff;
       border-color: var(--primary);
-      box-shadow: 0 4px 10px rgba(13, 110, 253, 0.3);
+      box-shadow: 0 4px 10px rgba(var(--primary-rgb), 0.3);
     }
     
     .plans-grid {
@@ -58,6 +56,32 @@
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: var(--space-6);
       margin-bottom: var(--space-8);
+    }
+
+    /* Tablet and below: 2-up, with a lone trailing card centred.
+       .is-orphan is set in script — it tracks the visible (filtered) cards,
+       which :nth-child cannot do since hidden cards still count. */
+    @media (max-width: 1024px) {
+      .plans-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .plans-grid > .plan-item.is-orphan {
+        grid-column: 1 / -1;
+        width: calc(50% - (var(--space-6) / 2));
+        margin-inline: auto;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .plans-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .plans-grid > .plan-item.is-orphan {
+        width: auto;
+        margin-inline: 0;
+      }
     }
     
     .plan-card {
@@ -69,8 +93,8 @@
       position: absolute;
       top: 1rem;
       right: -2rem;
-      background-color: var(--accent);
-      color: #fff;
+      background-image: var(--gradient-accent);
+      color: #1a1204;
       padding: 0.25rem 3rem;
       font-size: 0.75rem;
       font-weight: 600;
@@ -164,9 +188,9 @@
       </a>
       <nav class="nav-links">
         <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">About</a>
         <a href="plans.html" class="nav-link active">Plans</a>
         <a href="claims.html" class="nav-link">Claims</a>
-        <a href="about.html" class="nav-link">About</a>
         <a href="contact.html" class="nav-link">Contact</a>
       </nav>
       <div class="nav-actions">
@@ -189,9 +213,9 @@
     </button>
     <nav class="drawer-links">
       <a href="index.html" class="drawer-link">Home</a>
+      <a href="about.html" class="drawer-link">About</a>
       <a href="plans.html" class="drawer-link active">Plans</a>
       <a href="claims.html" class="drawer-link">Claims</a>
-      <a href="about.html" class="drawer-link">About</a>
       <a href="contact.html" class="drawer-link">Contact</a>
     </nav>
     <div class="drawer-actions">
@@ -203,14 +227,34 @@
   </div>
 
   <main>
-    <section class="page-header">
-      <div class="container">
-        <h1>Find the Perfect Plan</h1>
-        <p>Transparent pricing, comprehensive coverage, and no hidden fees.</p>
+    <section class="page-hero" style="--hero-img: url('https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&q=80&w=1920')">
+      <div class="container animate-up">
+        <span class="eyebrow"><i class="ph-fill ph-squares-four"></i> Car &amp; two-wheeler cover</span>
+        <h1>Find the perfect plan</h1>
+        <p>Transparent pricing, comprehensive coverage, and no hidden fees — compare every tier side by side before you commit.</p>
+
+        <div class="hero-stat-strip">
+          <div class="hero-stat">
+            <strong>4</strong>
+            <span>Coverage tiers</span>
+          </div>
+          <div class="hero-stat">
+            <strong>0</strong>
+            <span>Hidden charges</span>
+          </div>
+          <div class="hero-stat">
+            <strong>&lt;2 min</strong>
+            <span>To get covered</span>
+          </div>
+          <div class="hero-stat">
+            <strong>5,000+</strong>
+            <span>Cashless garages</span>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="container" style="padding-top: var(--space-8);">
+    <section class="container">
       
       <div class="plan-filters">
         <button class="filter-btn active" data-filter="car">
@@ -352,6 +396,69 @@
       <p class="disclaimer-text">* These premiums are illustrative estimates only based on standard vehicle profiles. Actual premium will depend on your vehicle's make, model, age, location, and selected add-ons. Use our calculator for a personalized estimate.</p>
     </section>
 
+    <!-- FAQ -->
+    <section class="faq-section">
+      <div class="container">
+        <div class="section-header animate-on-scroll">
+          <span class="eyebrow"><i class="ph-fill ph-question"></i> Before you choose</span>
+          <h2>Questions worth asking</h2>
+          <p>The things people ask us most before picking a plan — answered plainly.</p>
+        </div>
+
+        <div class="faq-list" data-accordion>
+          <div class="faq-item">
+            <button class="faq-question" id="plan-faq1-q" aria-expanded="false" aria-controls="plan-faq1-a">
+              <span>What is the difference between comprehensive and third-party cover?</span>
+              <i class="ph ph-plus faq-icon"></i>
+            </button>
+            <div class="faq-answer" id="plan-faq1-a" role="region" aria-labelledby="plan-faq1-q">
+              <div class="faq-answer-inner">
+                <p>Third-party cover is the legal minimum: it pays for damage or injury you cause to someone else, but nothing for your own vehicle. Comprehensive adds own-damage protection — accidents, fire, theft and natural calamities — plus personal accident cover for you. If your vehicle is newer or financed, comprehensive is almost always the right call.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" id="plan-faq2-q" aria-expanded="false" aria-controls="plan-faq2-a">
+              <span>How is my premium actually calculated?</span>
+              <i class="ph ph-plus faq-icon"></i>
+            </button>
+            <div class="faq-answer" id="plan-faq2-a" role="region" aria-labelledby="plan-faq2-q">
+              <div class="faq-answer-inner">
+                <p>Four things drive it: your vehicle&rsquo;s insured declared value (IDV), its age, where it is registered and driven, and the add-ons you pick. Your no-claim bonus then discounts the own-damage portion by up to 50%. The third-party component is fixed by regulation and does not vary between insurers.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" id="plan-faq3-q" aria-expanded="false" aria-controls="plan-faq3-a">
+              <span>Can I carry my no-claim bonus over from another insurer?</span>
+              <i class="ph ph-plus faq-icon"></i>
+            </button>
+            <div class="faq-answer" id="plan-faq3-a" role="region" aria-labelledby="plan-faq3-q">
+              <div class="faq-answer-inner">
+                <p>Yes. Your no-claim bonus belongs to you, not to your previous insurer. Share your expiring policy number and last renewal notice when you switch, and we will apply the same NCB slab — up to 50% — to your own-damage premium. It stays intact as long as you renew within 90 days of expiry.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" id="plan-faq4-q" aria-expanded="false" aria-controls="plan-faq4-a">
+              <span>Can I add or remove add-ons in the middle of a policy?</span>
+              <i class="ph ph-plus faq-icon"></i>
+            </button>
+            <div class="faq-answer" id="plan-faq4-a" role="region" aria-labelledby="plan-faq4-q">
+              <div class="faq-answer-inner">
+                <p>Add-ons such as zero depreciation, engine protection and roadside assistance can be added mid-term; the cost is charged pro-rata for the remaining policy period. Removing an add-on takes effect at your next renewal, since cover already in force cannot be withdrawn retrospectively.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="faq-footnote">Still unsure? <a href="contact.html">Talk to a human</a> — our team answers 24/7.</p>
+      </div>
+    </section>
+
   </main>
 
   <!-- Footer -->
@@ -364,9 +471,11 @@
           </a>
           <p>Premium auto insurance for your car and two-wheeler. Drive with confidence knowing we've got you covered.</p>
           <div class="social-links">
-            <a href="#" class="social-link"><i class="ph-fill ph-facebook-logo"></i></a>
-            <a href="#" class="social-link"><i class="ph-fill ph-twitter-logo"></i></a>
-            <a href="#" class="social-link"><i class="ph-fill ph-instagram-logo"></i></a>
+            <a href="#" class="social-link" aria-label="Apex Auto on Facebook"><i class="ph-fill ph-facebook-logo"></i></a>
+            <a href="#" class="social-link" aria-label="Apex Auto on X"><i class="ph-fill ph-x-logo"></i></a>
+            <a href="#" class="social-link" aria-label="Apex Auto on Instagram"><i class="ph-fill ph-instagram-logo"></i></a>
+            <a href="#" class="social-link" aria-label="Apex Auto on LinkedIn"><i class="ph-fill ph-linkedin-logo"></i></a>
+            <a href="#" class="social-link" aria-label="Apex Auto on YouTube"><i class="ph-fill ph-youtube-logo"></i></a>
           </div>
         </div>
         <div class="footer-col">
@@ -415,6 +524,8 @@
       
       if (type === 'bike' || type === 'car') {
         filterPlans(type);
+      } else {
+        markOrphan();
       }
       
       filterBtns.forEach(btn => {
@@ -447,6 +558,19 @@
             item.classList.remove('animate-up');
           }
         });
+
+        markOrphan();
+      }
+
+      /* Flags the last visible card when an odd number is showing, so the
+         2-up tablet layout can centre it instead of leaving a gap. */
+      function markOrphan() {
+        const visible = [...planItems].filter(item => !item.classList.contains('hidden'));
+        planItems.forEach(item => item.classList.remove('is-orphan'));
+
+        if (visible.length % 2 === 1) {
+          visible[visible.length - 1].classList.add('is-orphan');
+        }
       }
     });
   </script>

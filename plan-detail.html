@@ -9,11 +9,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  
   <link rel="stylesheet" href="assets/css/style.css">
   
   <style>
     .detail-header {
-      padding: 8rem 0 4rem;
+      padding: 9.5rem 0 4.5rem;
       background: var(--bg-color);
       border-bottom: 1px solid var(--border-color);
     }
@@ -22,7 +25,8 @@
       display: grid;
       grid-template-columns: 3fr 2fr;
       gap: var(--space-8);
-      padding: var(--space-8) 0;
+      /* padding-block only — the shorthand would wipe .container's gutter. */
+      padding-block: var(--space-8) var(--space-12);
     }
     
     .coverage-table {
@@ -42,7 +46,7 @@
     }
     
     .coverage-table th {
-      background-color: rgba(13, 110, 253, 0.05);
+      background-color: rgba(var(--primary-rgb), 0.05);
       font-weight: 600;
       color: var(--primary);
     }
@@ -122,7 +126,7 @@
     }
     
     .result-block {
-      background-color: rgba(13, 110, 253, 0.05);
+      background-color: rgba(var(--primary-rgb), 0.05);
       border-radius: var(--radius);
       padding: var(--space-4);
       margin-top: var(--space-4);
@@ -173,9 +177,9 @@
       </a>
       <nav class="nav-links">
         <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">About</a>
         <a href="plans.html" class="nav-link">Plans</a>
         <a href="claims.html" class="nav-link">Claims</a>
-        <a href="about.html" class="nav-link">About</a>
         <a href="contact.html" class="nav-link">Contact</a>
       </nav>
       <div class="nav-actions">
@@ -198,9 +202,9 @@
     </button>
     <nav class="drawer-links">
       <a href="index.html" class="drawer-link">Home</a>
+      <a href="about.html" class="drawer-link">About</a>
       <a href="plans.html" class="drawer-link">Plans</a>
       <a href="claims.html" class="drawer-link">Claims</a>
-      <a href="about.html" class="drawer-link">About</a>
       <a href="contact.html" class="drawer-link">Contact</a>
     </nav>
     <div class="drawer-actions">
@@ -396,9 +400,11 @@
           </a>
           <p>Premium auto insurance for your car and two-wheeler. Drive with confidence knowing we've got you covered.</p>
           <div class="social-links">
-            <a href="#" class="social-link"><i class="ph-fill ph-facebook-logo"></i></a>
-            <a href="#" class="social-link"><i class="ph-fill ph-twitter-logo"></i></a>
-            <a href="#" class="social-link"><i class="ph-fill ph-instagram-logo"></i></a>
+            <a href="#" class="social-link" aria-label="Apex Auto on Facebook"><i class="ph-fill ph-facebook-logo"></i></a>
+            <a href="#" class="social-link" aria-label="Apex Auto on X"><i class="ph-fill ph-x-logo"></i></a>
+            <a href="#" class="social-link" aria-label="Apex Auto on Instagram"><i class="ph-fill ph-instagram-logo"></i></a>
+            <a href="#" class="social-link" aria-label="Apex Auto on LinkedIn"><i class="ph-fill ph-linkedin-logo"></i></a>
+            <a href="#" class="social-link" aria-label="Apex Auto on YouTube"><i class="ph-fill ph-youtube-logo"></i></a>
           </div>
         </div>
         <div class="footer-col">

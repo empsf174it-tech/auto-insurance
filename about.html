@@ -5,125 +5,419 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Us | Apex Auto Insurance</title>
   <meta name="description" content="Learn about our mission, our story, and the leadership team driving Apex Auto Insurance forward.">
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
   <link rel="stylesheet" href="assets/css/style.css">
-  
+
   <style>
-    .about-hero {
-      padding: 10rem 0 6rem;
-      background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&q=80&w=1920') center/cover no-repeat;
-      color: #fff;
-      text-align: center;
-    }
-    
-    .about-hero h1, .about-hero p {
-      color: #fff;
-    }
-    
-    .about-hero p {
-      font-size: 1.25rem;
-      max-width: 800px;
-      margin: 0 auto;
-      opacity: 0.9;
-    }
-    
+    /* ================= Story ================= */
     .story-section {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: var(--space-8);
       align-items: center;
     }
-    
-    .story-img {
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
+
+    .story-copy {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    
+
+    .story-visual { position: relative; }
+
+    .story-img {
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border-color);
+      width: 100%;
+    }
+
     .mission-vision {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: var(--space-6);
+      gap: var(--space-4);
       margin-top: var(--space-8);
     }
-    
+
     .mission-card {
-      background-color: rgba(13, 110, 253, 0.05);
+      align-items: flex-start;
+      text-align: left;
+      background: linear-gradient(150deg, rgba(var(--primary-rgb), 0.07), transparent 60%), var(--surface-color);
+    }
+
+    .mission-card .mv-icon {
+      display: grid;
+      place-items: center;
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      background-image: var(--gradient-brand);
+      color: #fff;
+      font-size: 1.6rem;
+      margin-bottom: var(--space-4);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .mission-card p { margin-bottom: 0; }
+
+    /* ============ INTERACTIVE: Journey explorer ============ */
+    .journey-section {
+      background: var(--bg-elevated);
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .journey-rail {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-2);
+      max-width: 860px;
+      margin: 0 auto var(--space-6);
+      padding-top: var(--space-2);
+    }
+
+    /* the track + animated progress line */
+    .journey-rail::before,
+    .journey-rail .rail-progress {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 6%;
+      right: 6%;
+      height: 2px;
+      background: var(--border-color);
+      border-radius: 2px;
+    }
+
+    .journey-rail .rail-progress {
+      right: auto;
+      width: 0;
+      background-image: var(--gradient-brand);
+      transition: width 0.6s var(--ease);
+    }
+
+    .journey-node {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.55rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      font-family: var(--font-heading);
+      color: var(--text-tertiary);
+      transition: color 0.3s var(--ease-soft);
+    }
+
+    .journey-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--bg-elevated);
+      border: 2px solid var(--border-strong);
+      transition: var(--transition);
+      display: grid;
+      place-items: center;
+    }
+
+    .journey-dot::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: transparent;
+      transition: var(--transition);
+    }
+
+    .journey-node-year {
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .journey-node-tag {
+      font-family: var(--font-body);
+      font-size: 0.76rem;
+      color: var(--text-tertiary);
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: var(--transition);
+    }
+
+    .journey-node:hover { color: var(--text-primary); }
+    .journey-node:hover .journey-dot { border-color: var(--primary); }
+
+    .journey-node.active { color: var(--primary); }
+
+    .journey-node.active .journey-dot {
+      border-color: var(--primary);
+      background-image: var(--gradient-brand);
+      transform: scale(1.35);
+      box-shadow: 0 0 0 6px rgba(var(--primary-rgb), 0.14);
+    }
+
+    .journey-node.active .journey-dot::after { background: #fff; }
+
+    .journey-node.active .journey-node-tag { opacity: 1; transform: translateY(0); color: var(--primary); }
+
+    .journey-panel {
+      display: grid;
+      grid-template-columns: 1fr 0.9fr;
+      gap: var(--space-6);
+      align-items: center;
+      background: var(--surface-color);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: var(--space-5);
+      box-shadow: var(--shadow);
+      min-height: 340px;
+    }
+
+    .journey-copy { position: relative; }
+
+    .journey-copy .pill-badge { margin-bottom: var(--space-3); }
+
+    .journey-copy h3 { margin-bottom: var(--space-3); }
+
+    .journey-metrics {
+      display: flex;
+      gap: var(--space-5);
+      margin-top: var(--space-4);
+      flex-wrap: wrap;
+    }
+
+    .journey-metric strong {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 1.55rem;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+
+    .journey-metric span { font-size: 0.8rem; color: var(--text-tertiary); }
+
+    .journey-figure {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      box-shadow: var(--shadow);
       border: 1px solid var(--border-color);
     }
-    
-    .milestones {
-      position: relative;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    
-    .milestone-item {
-      display: flex;
-      gap: var(--space-4);
-      margin-bottom: var(--space-5);
-    }
-    
-    .milestone-year {
-      font-family: var(--font-heading);
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--primary);
-      width: 100px;
-      flex-shrink: 0;
-      text-align: right;
-    }
-    
-    .milestone-content {
-      border-left: 2px solid var(--border-color);
-      padding-left: var(--space-4);
-      padding-bottom: var(--space-4);
-    }
-    
-    .leadership-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: var(--space-6);
-    }
-    
-    .leader-card {
-      text-align: center;
-      border: none;
-      box-shadow: none;
-      background: transparent;
-      padding: 0;
-    }
-    
-    .leader-img {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
+
+    .journey-figure img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      margin-bottom: var(--space-3);
-      border: 4px solid var(--surface-color);
+      transition: transform 0.8s var(--ease);
+    }
+
+    .journey-panel:hover .journey-figure img { transform: scale(1.04); }
+
+    /* swap animation */
+    .journey-fade { animation: journeyIn 0.5s var(--ease); }
+
+    @keyframes journeyIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .journey-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-3);
+      margin-top: var(--space-5);
+    }
+
+    .journey-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      background: var(--surface-color);
+      color: var(--text-primary);
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: var(--transition);
+      box-shadow: var(--shadow-xs);
+    }
+
+    .journey-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-2px);
       box-shadow: var(--shadow);
     }
-    
-    .leader-card h4 {
-      margin-bottom: var(--space-1);
+
+    .journey-counter {
+      font-family: var(--font-heading);
+      font-size: 0.9rem;
+      color: var(--text-tertiary);
+      font-variant-numeric: tabular-nums;
+      min-width: 64px;
+      text-align: center;
     }
-    
+
+    /* ================= Values ================= */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-4);
+    }
+
+    .value-card { text-align: left; align-items: flex-start; }
+
+    .value-card i {
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: var(--space-3);
+    }
+
+    .value-card p { margin-bottom: 0; font-size: 0.95rem; }
+
+    /* ================= Leadership ================= */
+    .leadership-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-5);
+    }
+
+    .leader-card {
+      text-align: center;
+      border: 1px solid var(--border-color);
+      background: var(--surface-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5) var(--space-4);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .leader-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(var(--primary-rgb), 0.35);
+    }
+
+    .leader-img-wrap {
+      position: relative;
+      width: 132px;
+      height: 132px;
+      margin: 0 auto var(--space-4);
+      border-radius: 50%;
+      padding: 3px;
+      background-image: var(--gradient-brand);
+    }
+
+    .leader-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--surface-color);
+    }
+
+    .leader-card h4 { margin-bottom: var(--space-1); }
+    .leader-card p { margin-bottom: 0; font-size: 0.9rem; color: var(--text-tertiary); }
+
+    /* ================= CTA ================= */
+    .about-cta {
+      border-radius: var(--radius-xl);
+      padding: var(--space-8) var(--space-5);
+      text-align: center;
+      background:
+        radial-gradient(600px 240px at 15% 0%, rgba(255, 255, 255, 0.14), transparent 60%),
+        linear-gradient(135deg, #312e81 0%, #4338ca 45%, #0891b2 100%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .about-cta h2, .about-cta p { color: #fff; }
+    .about-cta p { opacity: 0.84; max-width: 560px; margin-inline: auto; }
+
+    @media (max-width: 900px) {
+      .journey-panel { grid-template-columns: 1fr; }
+      .journey-figure { order: -1; }
+    }
+
     @media (max-width: 768px) {
-      .story-section, .mission-vision {
-        grid-template-columns: 1fr;
+      .story-section, .mission-vision { grid-template-columns: 1fr; }
+      .mission-vision { margin-top: var(--space-8); }
+
+      /* Four milestones fit across without scrolling — keep the track. */
+      .journey-rail { gap: var(--space-2); }
+
+      /* Three-card grids: 2-up with the lone third card centred. */
+      .values-grid, .leadership-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .values-grid > :last-child:nth-child(odd) {
+        grid-column: 1 / -1;
+        width: calc(50% - (var(--space-4) / 2));
+        margin-inline: auto;
       }
-      .milestone-item {
-        flex-direction: column;
-        gap: var(--space-2);
+
+      .leadership-grid > :last-child:nth-child(odd) {
+        grid-column: 1 / -1;
+        width: calc(50% - (var(--space-5) / 2));
+        margin-inline: auto;
       }
-      .milestone-year {
-        text-align: left;
+    }
+
+    /* Compact rail for small phones: four nodes still fit on one line, so the
+       timeline keeps its shape instead of becoming a scroll strip. */
+    @media (max-width: 480px) {
+      .journey-rail {
+        gap: 0.25rem;
+        margin-bottom: var(--space-5);
       }
-      .milestone-content {
-        border-left: none;
-        padding-left: 0;
+
+      .journey-rail::before,
+      .journey-rail .rail-progress {
+        top: 19px;
+        left: 12%;
+        right: 12%;
+      }
+
+      .journey-node { min-width: 0; }
+
+      .journey-dot { width: 14px; height: 14px; }
+      .journey-dot::after { width: 5px; height: 5px; }
+
+      .journey-node-year { font-size: 0.88rem; }
+
+      /* Always show the tag — hover is not available here. */
+      .journey-node-tag {
+        opacity: 1;
+        transform: none;
+        font-size: 0.64rem;
+        line-height: 1.25;
+      }
+
+      .journey-metrics { gap: var(--space-4); }
+
+      .values-grid, .leadership-grid { grid-template-columns: 1fr; }
+      .values-grid > :last-child:nth-child(odd),
+      .leadership-grid > :last-child:nth-child(odd) {
+        width: auto;
+        margin-inline: 0;
       }
     }
   </style>
@@ -138,9 +432,9 @@
       </a>
       <nav class="nav-links">
         <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link active">About</a>
         <a href="plans.html" class="nav-link">Plans</a>
         <a href="claims.html" class="nav-link">Claims</a>
-        <a href="about.html" class="nav-link active">About</a>
         <a href="contact.html" class="nav-link">Contact</a>
       </nav>
       <div class="nav-actions">
@@ -163,9 +457,9 @@
     </button>
     <nav class="drawer-links">
       <a href="index.html" class="drawer-link">Home</a>
+      <a href="about.html" class="drawer-link active">About</a>
       <a href="plans.html" class="drawer-link">Plans</a>
       <a href="claims.html" class="drawer-link">Claims</a>
-      <a href="about.html" class="drawer-link active">About</a>
       <a href="contact.html" class="drawer-link">Contact</a>
     </nav>
     <div class="drawer-actions">
@@ -177,114 +471,190 @@
   </div>
 
   <main>
-    <section class="about-hero animate-up">
-      <div class="container">
-        <h1>Driving Trust Forward</h1>
-        <p>At Apex Auto, we believe insurance shouldn't be a hassle. We're on a mission to make protecting your vehicle as seamless as the ride itself.</p>
+    <!-- Hero -->
+    <section class="page-hero" style="--hero-img: url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&q=80&w=1920')">
+      <div class="container animate-up">
+        <span class="eyebrow"><i class="ph-fill ph-compass"></i> Since 2018</span>
+        <h1>Driving trust forward</h1>
+        <p>Insurance shouldn't be a hassle. We're on a mission to make protecting your vehicle as seamless as the ride itself.</p>
+
+        <div class="hero-stat-strip">
+          <div class="hero-stat">
+            <strong><span data-count-to="2.1" data-suffix="M+">0</span></strong>
+            <span>Vehicles protected</span>
+          </div>
+          <div class="hero-stat">
+            <strong><span data-count-to="98.5" data-suffix="%">0</span></strong>
+            <span>Claims settled</span>
+          </div>
+          <div class="hero-stat">
+            <strong><span data-count-to="5000" data-suffix="+">0</span></strong>
+            <span>Network garages</span>
+          </div>
+          <div class="hero-stat">
+            <strong><span data-count-to="640" data-suffix="+">0</span></strong>
+            <span>Team members</span>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- Our Story -->
-    <section class="container animate-on-scroll">
-      <div class="story-section">
-        <div>
-          <h2>Our Story</h2>
-          <p>Founded in 2018, Apex Auto was born out of a simple frustration: why does buying insurance and filing claims feel so complicated? We saw an industry built on confusing jargon, endless paperwork, and slow responses.</p>
-          <p>We set out to build a digital-first insurance company that puts the customer in the driver's seat. By leveraging technology, we've stripped away the bureaucracy, enabling instant quotes, customized policies, and lightning-fast claim settlements.</p>
-          <p>Today, we proudly protect over 2 million vehicles nationwide, from daily commuter bikes to luxury sports cars.</p>
+    <section class="container">
+      <div class="story-section animate-on-scroll">
+        <div class="story-copy">
+          <span class="eyebrow"><i class="ph-fill ph-book-open-text"></i> Our story</span>
+          <h2>Built by people who hated filing claims</h2>
+          <p>Founded in 2018, Apex Auto was born out of a simple frustration: why does buying insurance and filing a claim feel so complicated? We saw an industry built on confusing jargon, endless paperwork, and slow responses.</p>
+          <p>So we built a digital-first insurer that puts the customer in the driver's seat. By leaning on technology instead of bureaucracy, we deliver instant quotes, customisable policies, and claim settlements measured in hours.</p>
+          <p>Today we protect over 2 million vehicles nationwide — from daily commuter bikes to weekend sports cars.</p>
+          <a href="contact.html" class="btn btn-outline">Talk to our team</a>
         </div>
-        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800" alt="Apex Auto Team Collaboration" class="story-img">
+
+        <div class="story-visual">
+          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=900" alt="The Apex Auto team collaborating in the office" class="story-img">
+        </div>
       </div>
-      
-      <div class="mission-vision">
+
+      <div class="mission-vision reveal-stagger">
         <div class="card mission-card">
-          <i class="ph ph-target" style="font-size: 3rem; color: var(--primary); margin-bottom: var(--space-3);"></i>
-          <h3>Our Mission</h3>
-          <p>To provide transparent, affordable, and accessible auto insurance, ensuring every driver and rider feels secure on their journey.</p>
+          <div class="mv-icon"><i class="ph-fill ph-target"></i></div>
+          <h3>Our mission</h3>
+          <p>To provide transparent, affordable and accessible auto insurance, so every driver and rider feels secure on their journey.</p>
         </div>
         <div class="card mission-card">
-          <i class="ph ph-eye" style="font-size: 3rem; color: var(--primary); margin-bottom: var(--space-3);"></i>
-          <h3>Our Vision</h3>
-          <p>To be the most trusted and customer-centric mobility protection brand, pioneering digital innovations in the insurance space.</p>
+          <div class="mv-icon"><i class="ph-fill ph-eye"></i></div>
+          <h3>Our vision</h3>
+          <p>To be the most trusted, customer-centric mobility protection brand — the one that sets the pace for digital insurance.</p>
         </div>
       </div>
     </section>
 
-    <!-- Regulatory Milestones -->
-    <section class="animate-on-scroll" style="background-color: var(--surface-color); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+    <!-- ===== INTERACTIVE: Journey explorer ===== -->
+    <section class="journey-section" id="journey">
       <div class="container">
-        <div class="section-header">
-          <h2>Our Journey & Compliance</h2>
-          <p>Building a foundation of trust requires strict adherence to regulatory standards.</p>
+        <div class="section-header animate-on-scroll">
+          <span class="eyebrow"><i class="ph-fill ph-path"></i> Interactive timeline</span>
+          <h2>Our journey &amp; compliance</h2>
+          <p>Pick a year on the track — or use your arrow keys — to see what we built and what it took to get approved.</p>
         </div>
-        
-        <div class="milestones">
-          <div class="milestone-item">
-            <div class="milestone-year">2018</div>
-            <div class="milestone-content">
-              <h4>Inception & Seed Funding</h4>
-              <p>Apex Auto is founded with a vision to revolutionize auto insurance. Secured initial seed funding from top-tier VCs.</p>
-            </div>
+
+        <div class="animate-on-scroll">
+          <div class="journey-rail" id="journey-rail" role="tablist" aria-label="Company milestones">
+            <div class="rail-progress" id="rail-progress"></div>
+
+            <button class="journey-node active" role="tab" aria-selected="true" data-index="0">
+              <span class="journey-dot"></span>
+              <span class="journey-node-year">2018</span>
+              <span class="journey-node-tag">Founded</span>
+            </button>
+            <button class="journey-node" role="tab" aria-selected="false" data-index="1">
+              <span class="journey-dot"></span>
+              <span class="journey-node-year">2019</span>
+              <span class="journey-node-tag">Licensed</span>
+            </button>
+            <button class="journey-node" role="tab" aria-selected="false" data-index="2">
+              <span class="journey-dot"></span>
+              <span class="journey-node-year">2021</span>
+              <span class="journey-node-tag">Cars</span>
+            </button>
+            <button class="journey-node" role="tab" aria-selected="false" data-index="3">
+              <span class="journey-dot"></span>
+              <span class="journey-node-year">2026</span>
+              <span class="journey-node-tag">Today</span>
+            </button>
           </div>
-          
-          <div class="milestone-item">
-            <div class="milestone-year">2019</div>
-            <div class="milestone-content">
-              <h4>Regulatory Approval</h4>
-              <p>Obtained formal certification and operating license from the regulatory authority (Placeholder ID: IRDAI-MOCK-190). Launched our first Two-Wheeler policy.</p>
+
+          <div class="journey-panel" id="journey-panel">
+            <div class="journey-copy" id="journey-copy">
+              <span class="pill-badge" id="journey-badge">Milestone</span>
+              <h3 id="journey-title">Inception &amp; seed funding</h3>
+              <p id="journey-body">Apex Auto is founded with a single conviction: insurance should be measured by how fast it pays out, not how much it collects.</p>
+
+              <div class="journey-metrics" id="journey-metrics"></div>
             </div>
+
+            <figure class="journey-figure">
+              <img id="journey-image" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=900" alt="Milestone illustration">
+            </figure>
           </div>
-          
-          <div class="milestone-item">
-            <div class="milestone-year">2021</div>
-            <div class="milestone-content">
-              <h4>Expansion to Car Insurance</h4>
-              <p>Expanded our portfolio to include comprehensive car insurance, introducing the industry's first instant zero-depreciation add-on via our app.</p>
-            </div>
+
+          <div class="journey-controls">
+            <button class="journey-btn" id="journey-prev" aria-label="Previous milestone"><i class="ph ph-caret-left"></i></button>
+            <span class="journey-counter" id="journey-counter">01 / 05</span>
+            <button class="journey-btn" id="journey-next" aria-label="Next milestone"><i class="ph ph-caret-right"></i></button>
           </div>
-          
-          <div class="milestone-item">
-            <div class="milestone-year">2024</div>
-            <div class="milestone-content">
-              <h4>1 Million Customers Milestone</h4>
-              <p>Crossed 1 million active policies and achieved a 98.5% claim settlement ratio, making us one of the fastest-growing digital insurers.</p>
-            </div>
-          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Values -->
+    <section class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="eyebrow"><i class="ph-fill ph-diamond"></i> What we stand for</span>
+        <h2>Three rules we don't bend</h2>
+      </div>
+
+      <div class="values-grid reveal-stagger">
+        <div class="card value-card">
+          <i class="ph-fill ph-eye"></i>
+          <h4>Radical transparency</h4>
+          <p>Every exclusion is written in plain language on the page where you buy — never buried in a PDF.</p>
+        </div>
+        <div class="card value-card">
+          <i class="ph-fill ph-timer"></i>
+          <h4>Speed is a feature</h4>
+          <p>We track hours-to-settlement like an engineering metric, and publish it every quarter.</p>
+        </div>
+        <div class="card value-card">
+          <i class="ph-fill ph-handshake"></i>
+          <h4>Fair by default</h4>
+          <p>No claim gets rejected on a technicality a reasonable customer couldn't have foreseen.</p>
         </div>
       </div>
     </section>
 
     <!-- Leadership -->
-    <section class="container animate-on-scroll">
-      <div class="section-header">
-        <h2>Meet the Leadership</h2>
-        <p>The visionaries steering the wheel at Apex Auto.</p>
+    <section class="container" style="padding-top: 0;">
+      <div class="section-header animate-on-scroll">
+        <span class="eyebrow"><i class="ph-fill ph-users-three"></i> Leadership</span>
+        <h2>Meet the people steering</h2>
+        <p>Operators from insurance, engineering and customer service — with a shared allergy to red tape.</p>
       </div>
-      
-      <div class="leadership-grid">
+
+      <div class="leadership-grid reveal-stagger">
         <div class="leader-card">
-          <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=300" alt="Rajeev Singh, CEO" class="leader-img">
+          <div class="leader-img-wrap">
+            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=300" alt="Rajeev Singh, Chief Executive Officer" class="leader-img">
+          </div>
           <h4>Rajeev Singh</h4>
           <p>Chief Executive Officer</p>
         </div>
         <div class="leader-card">
-          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300" alt="Ananya Sharma, COO" class="leader-img">
+          <div class="leader-img-wrap">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300" alt="Ananya Sharma, Chief Operating Officer" class="leader-img">
+          </div>
           <h4>Ananya Sharma</h4>
           <p>Chief Operating Officer</p>
         </div>
         <div class="leader-card">
-          <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=300" alt="Vikram Mehta, CTO" class="leader-img">
+          <div class="leader-img-wrap">
+            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=300" alt="Vikram Mehta, Chief Technology Officer" class="leader-img">
+          </div>
           <h4>Vikram Mehta</h4>
           <p>Chief Technology Officer</p>
-        </div>
-        <div class="leader-card">
-          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=300" alt="Priya Desai, Head of Claims" class="leader-img">
-          <h4>Priya Desai</h4>
-          <p>Head of Claims</p>
         </div>
       </div>
     </section>
 
+    <!-- CTA -->
+    <section class="container" style="padding-top: 0;">
+      <div class="about-cta animate-on-scroll">
+        <h2>Join two million protected journeys</h2>
+        <p>Get an indicative premium in under two minutes — no paperwork, no sales call.</p>
+        <a href="index.html#estimator" class="btn btn-accent btn-lg" style="margin-top: var(--space-4);">Estimate my premium</a>
+      </div>
+    </section>
   </main>
 
   <!-- Footer -->
@@ -297,9 +667,11 @@
           </a>
           <p>Premium auto insurance for your car and two-wheeler. Drive with confidence knowing we've got you covered.</p>
           <div class="social-links">
-            <a href="#" class="social-link"><i class="ph-fill ph-facebook-logo"></i></a>
-            <a href="#" class="social-link"><i class="ph-fill ph-twitter-logo"></i></a>
-            <a href="#" class="social-link"><i class="ph-fill ph-instagram-logo"></i></a>
+            <a href="#" class="social-link" aria-label="Apex Auto on Facebook"><i class="ph-fill ph-facebook-logo"></i></a>
+            <a href="#" class="social-link" aria-label="Apex Auto on X"><i class="ph-fill ph-x-logo"></i></a>
+            <a href="#" class="social-link" aria-label="Apex Auto on Instagram"><i class="ph-fill ph-instagram-logo"></i></a>
+            <a href="#" class="social-link" aria-label="Apex Auto on LinkedIn"><i class="ph-fill ph-linkedin-logo"></i></a>
+            <a href="#" class="social-link" aria-label="Apex Auto on YouTube"><i class="ph-fill ph-youtube-logo"></i></a>
           </div>
         </div>
         <div class="footer-col">
@@ -324,7 +696,7 @@
           <h4>Support</h4>
           <div class="footer-links">
             <a href="contact.html">Help Center</a>
-            <a href="#">Terms & Conditions</a>
+            <a href="#">Terms &amp; Conditions</a>
             <a href="#">Privacy Policy</a>
           </div>
         </div>
@@ -337,5 +709,6 @@
   </footer>
 
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/journey.js"></script>
 </body>
 </html>

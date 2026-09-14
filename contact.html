@@ -9,20 +9,19 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  
   <link rel="stylesheet" href="assets/css/style.css">
   
   <style>
-    .page-header {
-      padding: 8rem 0 4rem;
-      background: linear-gradient(135deg, var(--bg-color) 0%, rgba(13, 110, 253, 0.05) 100%);
-      text-align: center;
-    }
     
     .contact-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: var(--space-8);
-      padding: var(--space-8) 0;
+      /* padding-block only — the shorthand would wipe .container's gutter. */
+      padding-block: var(--space-8) var(--space-12);
     }
     
     .contact-info {
@@ -45,7 +44,7 @@
     .info-icon {
       width: 48px;
       height: 48px;
-      background-color: rgba(13, 110, 253, 0.1);
+      background-color: rgba(var(--primary-rgb), 0.1);
       color: var(--primary);
       border-radius: 50%;
       display: flex;
@@ -64,6 +63,18 @@
       color: var(--text-secondary);
     }
     
+    .info-social .social-links {
+      margin-top: var(--space-3);
+      flex-wrap: wrap;
+    }
+
+    .info-social .social-link {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      background-color: var(--bg-elevated);
+    }
+
     .contact-form-container {
       background-color: var(--surface-color);
       padding: var(--space-6);
@@ -85,20 +96,40 @@
       position: relative;
     }
     
-    .map-placeholder {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-secondary);
+    .map-frame {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
     }
-    
-    .map-placeholder i {
-      font-size: 3rem;
-      color: var(--primary);
-      margin-bottom: var(--space-2);
+
+    /* Tiles are light-only, so soften them rather than invert in dark mode. */
+    [data-theme="dark"] .map-frame {
+      filter: brightness(0.86) contrast(1.05) saturate(0.9);
+    }
+
+    .map-link {
+      position: absolute;
+      right: var(--space-3);
+      bottom: var(--space-3);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 0.85rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border-radius: var(--radius-pill);
+      background-color: var(--surface-color);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .map-link:hover {
+      background-image: var(--gradient-brand);
+      border-color: transparent;
+      color: #fff;
     }
     
     .success-msg {
@@ -128,13 +159,14 @@
     /* 360px specific fix */
     @media (max-width: 360px) {
       .container {
-        padding: 0 var(--space-2);
+        padding-inline: var(--space-3);
       }
       .info-card {
         flex-direction: column;
         align-items: center;
         text-align: center;
       }
+      .info-social .social-links { justify-content: center; }
     }
   </style>
 </head>
@@ -148,9 +180,9 @@
       </a>
       <nav class="nav-links">
         <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">About</a>
         <a href="plans.html" class="nav-link">Plans</a>
         <a href="claims.html" class="nav-link">Claims</a>
-        <a href="about.html" class="nav-link">About</a>
         <a href="contact.html" class="nav-link active">Contact</a>
       </nav>
       <div class="nav-actions">
@@ -173,9 +205,9 @@
     </button>
     <nav class="drawer-links">
       <a href="index.html" class="drawer-link">Home</a>
+      <a href="about.html" class="drawer-link">About</a>
       <a href="plans.html" class="drawer-link">Plans</a>
       <a href="claims.html" class="drawer-link">Claims</a>
-      <a href="about.html" class="drawer-link">About</a>
       <a href="contact.html" class="drawer-link active">Contact</a>
     </nav>
     <div class="drawer-actions">
@@ -187,51 +219,36 @@
   </div>
 
   <main>
-    <section class="page-header">
-      <div class="container">
-        <h1>Get in Touch</h1>
-        <p>Have a question about your policy? Need help with a claim? We're here for you 24/7.</p>
+    <section class="page-hero" style="--hero-img: url('https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&q=80&w=1920')">
+      <div class="container animate-up">
+        <span class="eyebrow"><i class="ph-fill ph-headset"></i> Real people, not scripts</span>
+        <h1>Get in touch</h1>
+        <p>Question about your policy? Stuck mid-claim? Our team answers day or night — no phone tree, no hold music.</p>
+
+        <div class="hero-stat-strip">
+          <div class="hero-stat">
+            <strong>24/7</strong>
+            <span>Helpline hours</span>
+          </div>
+          <div class="hero-stat">
+            <strong>&lt;4 min</strong>
+            <span>Avg. response time</span>
+          </div>
+          <div class="hero-stat">
+            <strong>92%</strong>
+            <span>Solved first contact</span>
+          </div>
+          <div class="hero-stat">
+            <strong>5</strong>
+            <span>Regional offices</span>
+          </div>
+        </div>
       </div>
     </section>
 
     <section class="container contact-grid">
-      <!-- Contact Info -->
-      <div class="contact-info animate-up">
-        <div class="info-card">
-          <div class="info-icon">
-            <i class="ph-fill ph-phone-call"></i>
-          </div>
-          <div>
-            <h4>24/7 Customer Support</h4>
-            <p>1800-258-0000 (Toll-Free)</p>
-            <p>+91 98765 43210 (WhatsApp)</p>
-          </div>
-        </div>
-        
-        <div class="info-card">
-          <div class="info-icon">
-            <i class="ph-fill ph-envelope-simple"></i>
-          </div>
-          <div>
-            <h4>Email Us</h4>
-            <p>support@apexauto.demo</p>
-            <p>claims@apexauto.demo</p>
-          </div>
-        </div>
-        
-        <div class="info-card">
-          <div class="info-icon">
-            <i class="ph-fill ph-map-pin"></i>
-          </div>
-          <div>
-            <h4>Corporate Headquarters</h4>
-            <p>Apex Tower, Insurance Hub,<br>Cyber City, Bangalore - 560001</p>
-          </div>
-        </div>
-      </div>
-      
       <!-- Contact Form -->
-      <div class="contact-form-container animate-up delay-2">
+      <div class="contact-form-container animate-up">
         <h3 style="margin-bottom: var(--space-4);">Send us a Message</h3>
         
         <div id="contact-success" class="success-msg">
@@ -273,17 +290,75 @@
           <button type="submit" class="btn btn-primary btn-block">Send Message <i class="ph ph-paper-plane-right" style="margin-left: 0.5rem;"></i></button>
         </form>
       </div>
+      <!-- Contact Info -->
+      <div class="contact-info animate-up delay-2">
+        <div class="info-card">
+          <div class="info-icon">
+            <i class="ph-fill ph-phone-call"></i>
+          </div>
+          <div>
+            <h4>24/7 Customer Support</h4>
+            <p>1800-258-0000 (Toll-Free)</p>
+            <p>+91 98765 43210 (WhatsApp)</p>
+          </div>
+        </div>
+        
+        <div class="info-card">
+          <div class="info-icon">
+            <i class="ph-fill ph-envelope-simple"></i>
+          </div>
+          <div>
+            <h4>Email Us</h4>
+            <p>support@apexauto.demo</p>
+            <p>claims@apexauto.demo</p>
+          </div>
+        </div>
+        
+        <div class="info-card">
+          <div class="info-icon">
+            <i class="ph-fill ph-map-pin"></i>
+          </div>
+          <div>
+            <h4>Corporate Headquarters</h4>
+            <p>Apex Tower, Insurance Hub,<br>Cyber City, Bangalore - 560001</p>
+          </div>
+        </div>
+
+        <div class="info-card info-social">
+          <div class="info-icon">
+            <i class="ph-fill ph-share-network"></i>
+          </div>
+          <div>
+            <h4>Follow Us</h4>
+            <p>Service updates, road-safety tips and claim turnaround reports.</p>
+            <div class="social-links">
+              <a href="#" class="social-link" aria-label="Apex Auto on Facebook"><i class="ph-fill ph-facebook-logo"></i></a>
+              <a href="#" class="social-link" aria-label="Apex Auto on X"><i class="ph-fill ph-x-logo"></i></a>
+              <a href="#" class="social-link" aria-label="Apex Auto on Instagram"><i class="ph-fill ph-instagram-logo"></i></a>
+              <a href="#" class="social-link" aria-label="Apex Auto on LinkedIn"><i class="ph-fill ph-linkedin-logo"></i></a>
+              <a href="#" class="social-link" aria-label="Apex Auto on YouTube"><i class="ph-fill ph-youtube-logo"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
     </section>
 
     <!-- Map Section -->
     <section class="container animate-on-scroll">
       <div class="map-container">
-        <!-- Google Maps iframe placeholder -->
-        <div class="map-placeholder">
-          <i class="ph-fill ph-map-trifold"></i>
-          <h3>Interactive Map</h3>
-          <p>Google Maps Iframe Placeholder</p>
-        </div>
+        <!-- OpenStreetMap embed — no API key required. -->
+        <iframe
+          class="map-frame"
+          title="Map showing the Apex Auto head office in Bangalore"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=77.5746%2C12.9616%2C77.6146%2C12.9816&amp;layer=mapnik&amp;marker=12.9716%2C77.5946"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+        <a class="map-link" href="https://www.openstreetmap.org/?mlat=12.9716&amp;mlon=77.5946#map=15/12.9716/77.5946"
+          target="_blank" rel="noopener">
+          <i class="ph-fill ph-arrow-square-out"></i> Open larger map
+        </a>
       </div>
     </section>
   </main>
@@ -298,9 +373,11 @@
           </a>
           <p>Premium auto insurance for your car and two-wheeler. Drive with confidence knowing we've got you covered.</p>
           <div class="social-links">
-            <a href="#" class="social-link"><i class="ph-fill ph-facebook-logo"></i></a>
-            <a href="#" class="social-link"><i class="ph-fill ph-twitter-logo"></i></a>
-            <a href="#" class="social-link"><i class="ph-fill ph-instagram-logo"></i></a>
+            <a href="#" class="social-link" aria-label="Apex Auto on Facebook"><i class="ph-fill ph-facebook-logo"></i></a>
+            <a href="#" class="social-link" aria-label="Apex Auto on X"><i class="ph-fill ph-x-logo"></i></a>
+            <a href="#" class="social-link" aria-label="Apex Auto on Instagram"><i class="ph-fill ph-instagram-logo"></i></a>
+            <a href="#" class="social-link" aria-label="Apex Auto on LinkedIn"><i class="ph-fill ph-linkedin-logo"></i></a>
+            <a href="#" class="social-link" aria-label="Apex Auto on YouTube"><i class="ph-fill ph-youtube-logo"></i></a>
           </div>
         </div>
         <div class="footer-col">
