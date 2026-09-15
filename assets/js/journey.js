@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { value: '8', label: 'Founding team' },
         { value: '$4M', label: 'Seed round' }
       ],
-      image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=900',
+      image: 'assets/images/journey-2018-founded.jpg',
       alt: 'The founding team collaborating around a desk'
     },
     {
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { value: '4 min', label: 'First policy issued' },
         { value: '100%', label: 'Paperless from day one' }
       ],
-      image: 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&q=80&w=900',
+      image: 'assets/images/journey-2019-licensed.jpg',
       alt: 'Motorcycle rider on a city street'
     },
     {
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { value: '3,200+', label: 'Garages onboarded' },
         { value: '11 s', label: 'Median quote time' }
       ],
-      image: 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&q=80&w=900',
+      image: 'assets/images/journey-2021-cars.jpg',
       alt: 'A car parked on an open road'
     },
     {
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { value: '2.1M', label: 'Vehicles covered' },
         { value: '4h 12m', label: 'Avg. approval time' }
       ],
-      image: 'https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&q=80&w=900',
+      image: 'assets/images/journey-2026-today.jpg',
       alt: 'Car on a coastal highway at sunset'
     }
   ];
