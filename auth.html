@@ -34,6 +34,17 @@
       z-index: 10;
     }
 
+    /* Keep the floating toggle still — no rotate/colour shift on hover or tap. */
+    .auth-theme-toggle,
+    .auth-theme-toggle:hover,
+    .auth-theme-toggle:active {
+      transform: none;
+      color: var(--text-primary);
+      border-color: var(--border-color);
+      transition: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
     .auth-card {
       width: 100%;
       max-width: 460px;
@@ -56,7 +67,13 @@
       letter-spacing: -0.03em;
       color: var(--logo-blue);
       margin-bottom: var(--space-4);
+      transition: none;
+      -webkit-tap-highlight-color: transparent;
     }
+
+    .auth-brand:hover,
+    .auth-brand:focus,
+    .auth-brand:active { color: var(--logo-blue); opacity: 1; }
 
     .auth-brand i {
       display: grid;
@@ -319,9 +336,16 @@
       .auth-title { font-size: 1.4rem; }
       .form-meta { gap: var(--space-2); }
 
-      /* The card is nearly full-width here, so reserve a band for the
-         floating toggle instead of letting it sit on the card's corner. */
-      .auth-theme-toggle { top: var(--space-3); right: var(--space-3); }
+    }
+
+    /* On phones/tablets the toggle is anchored to the page (not the viewport),
+       in its own reserved band, so it never floats over the card while scrolling. */
+    @media (max-width: 768px) {
+      .auth-theme-toggle {
+        position: absolute;
+        top: var(--space-3);
+        right: var(--space-3);
+      }
       body { padding-top: calc(42px + var(--space-3) * 2); }
     }
   </style>

@@ -494,6 +494,13 @@ section[id], [id] { scroll-margin-top: 100px; }
 
 .form-control:hover { border-color: var(--border-strong); }
 
+/* Dark color-scheme makes the browser draw a light picker icon (and a dark popup). */
+[data-theme="dark"] .form-control { color-scheme: dark; }
+.form-control::-webkit-calendar-picker-indicator {
+  opacity: 0.85;
+  cursor: pointer;
+}
+
 .form-control:focus {
   outline: none;
   border-color: var(--primary);
